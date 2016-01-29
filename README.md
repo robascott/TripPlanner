@@ -1,6 +1,15 @@
 # DayTripper - Readme
 
-### Technical Requirements
+## Contributors
+Robin, Richard, Chiara, David
+
+## Introduction 
+
+DayTripper lets you create awesome trip plans. 
+
+You will get suggestions from Google Places on activities and places to visit, and you'll be able to save those you actually want to go to! 
+
+## Technical Requirements
 
 Your app must:
 
@@ -13,18 +22,6 @@ Your app must:
 * **Manage team contributions and collaboration** using a standard Git flow on Github
 * Layout and style your front-end with **clean & well-formatted CSS**
 * **Deploy your application online** so it's publically accessible
-
-
----
-
-## Contributors
-Robin, Richard, Chiara, David
-
-## Introduction 
-
-DayTripper lets you create awesome trip plans. 
-
-You will get suggestions from Google Places on activities and places to visit, and you'll be able to save those you actually want to go to! 
 
 ## Deliverables
 
@@ -39,4 +36,15 @@ You will get suggestions from Google Places on activities and places to visit, a
     * Link to your **user stories** – who are your users, what do they want, and why?
     * Link to your **wireframes** – sketches of major views / interfaces in your application
     * Descriptions of any **unsolved problems** or **major hurdles** your team had to overcome
+
+
+## User Stories
+
+The user will be able to create a plan for a trip.
+
+The user will be able to add activities to a trip.
+
+The user will be able to access information using a map.
+
+The user will be able to create, update and delete an account.
 
