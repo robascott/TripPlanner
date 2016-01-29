@@ -1,4 +1,4 @@
 # DayTripper
 
 ## Contributors
-Robin
+Robin, Richard
