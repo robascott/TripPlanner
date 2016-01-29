@@ -1,4 +1,6 @@
 # DayTripper
 
+
 ## Contributors
-Robin, Richard, Chiara
+Robin, Richard, Chiara, David
+
