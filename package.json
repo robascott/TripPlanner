@@ -1,0 +1,33 @@
+{
+  "name": "trip-planner",
+  "version": "1.0.0",
+  "description": "## Contributors Robin, Richard, Chiara, David",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robascott/DayTripper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "~1.0.0",
+    "ejs": "^2.4.1",
+    "express": "~4.0.0",
+    "express-ejs-layouts": "^2.0.0",
+    "express-jwt": "^3.0.1",
+    "jsonwebtoken": "^5.0.5",
+    "method-override": "^1.0.2",
+    "mongoose": "4.1.1",
+    "morgan": "~1.0.0",
+    "passport": "^0.2.0",
+    "passport-local": "~0.1.6"
+  },
+  "bugs": {
+    "url": "https://github.com/robascott/DayTripper/issues"
+  },
+  "homepage": "https://github.com/robascott/DayTripper#readme"
+}
