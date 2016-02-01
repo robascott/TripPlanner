@@ -6,7 +6,7 @@ function init(){
   $(".users-link").on("click", users);
   $(".login-link, .register-link, .users-link").on("click", showPage);
   hideErrors();
-  checkLoginState();
+  //checkLoginState();
 }
 
 function checkLoginState(){
