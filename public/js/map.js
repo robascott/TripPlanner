@@ -126,7 +126,8 @@ function getNearbyPlaces() {
 function callback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
-      console.log(results[i]);
+    	console.log(results[i].name);
+      $("#suggestions").prepend("<div class='suggestion-tile'><h2>" + results[i].name + "</h2></div>");
     }
   }
 }
