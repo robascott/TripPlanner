@@ -1,16 +1,21 @@
-<h2>Sign up</h2>
-<form class="signup" method="post" action="/signup">
+<h2>Signup</h2>
+
+<% if (message.length > 0) { %>
+    <div class="alert alert-danger"><%= message %></div>
+<% } %>
+
+<form method="post" action="/signup" id="authFormSignUp">
   <div class="form-group">
-    <label for="register-username">Username</label>
-    <input type="text" name="username" id="register-username" class="form-control" placeholder="Username" required>
+    <label for="email">Email</label>
+    <input class="form-control" type="text" name="email" id="email" required>
   </div>
+
   <div class="form-group">
-    <label for="register-email">Email address</label>
-    <input type="email" name="email" id="register-email" class="form-control" placeholder="Email" required>
+    <label for="email">Password</label>
+    <input class="form-control" type="password" name="password" id="password" required>
   </div>
-  <div class="form-group">
-    <label for="register-password">Password</label>
-    <input type="password" name="password" id="register-password" class="form-control" placeholder="Password" required>
-  </div>
-  <button type="submit" class="btn btn-default">Sign up</button>
+
+  <input class="btn btn-success" type="submit">
 </form>
+
+<script type="text/javascript" src="../js/app_auth.js"></script>

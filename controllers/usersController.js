@@ -1,21 +1,15 @@
 var User   = require('../models/user');
 
-
-function redirectUser(req, res) {
-  console.log(currentUser);
-  if (currentUser) {
-    res.redirect("/planner");
-  } else {
-    res.redirect("/login")
-  }
+function showLogin(req,res) {
+    res.render('login', { message: req.flash('errorMessage') });
 }
 
-function showLogin(req, res) {
-  res.render('login');
+function showSignup(req,res) {
+   res.render('signup', { message: req.flash('errorMessage') });
 }
 
-function showSignup(req, res) {
-  res.render('signup');
+function showPlanner(req,res) {
+  res.render('planner');
 }
 
 function usersIndex(req, res) {
@@ -37,7 +31,7 @@ function usersUpdate(req, res){
     if (err) return res.status(500).json({message: "Something went wrong!"});
     if (!user) return res.status(404).json({message: 'No user found.'});
 
-    if (req.body.email) user.local.email = req.body.name;
+    if (req.body.email) user.local.email = req.body.email;
     if (req.body.password) user.local.password = req.body.password;
 
     user.save(function(err) {
@@ -62,5 +56,5 @@ module.exports = {
   usersDelete: usersDelete,
   showLogin: showLogin,
   showSignup: showSignup,
-  redirectUser: redirectUser
+  showPlanner: showPlanner
 }

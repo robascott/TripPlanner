@@ -4,36 +4,24 @@ var passport = require("passport");
 
 var usersController = require('../controllers/usersController');
 var authenticationsController = require('../controllers/authenticationsController');
-var apiController = require('../controllers/apiController');
+
+var User   = require('../models/user');
+
+router.get('/login', usersController.showLogin);
+router.get('/signup', usersController.showSignup);
+router.get('/planner', usersController.showPlanner);
 
 
-//ROOT ROUTE
-router.route('/')
-  .get(usersController.redirectUser)
-
-
-router.route("/login")
-	.get(usersController.showLogin)
-
-router.route("/signup")
-	.get(usersController.showSignup)
-
-
-
-// api/login or api/signup
 router.post('/login', authenticationsController.login);
-router.post('/signup', authenticationsController.signup);
+router.post('/signup', authenticationsController.register);
 
+router.route('/users')
+  .get(usersController.usersIndex)
 
-router.get('/planner', apiController.showPlanner);
-
-// router.route('/users')
-//   .get(usersController.usersIndex)
-
-// router.route('/users/:id')
-//   .get(usersController.usersShow)
-//   .put(usersController.usersUpdate)
-//   .patch(usersController.usersUpdate)
-//   .delete(usersController.usersDelete)
+router.route('/users/:id')
+  .get(usersController.usersShow)
+  .put(usersController.usersUpdate)
+  .patch(usersController.usersUpdate)
+  .delete(usersController.usersDelete)
 
 module.exports = router

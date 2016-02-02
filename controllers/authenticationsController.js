@@ -2,69 +2,59 @@ var passport = require("passport");
 var User     = require('../models/user');
 var secret   = require('../config/config').secret 
 var jwt      = require('jsonwebtoken');
+var bcrypt   = require('bcrypt-nodejs');
 
 
-function signup(req, res, next) {
-  var localStrategy = passport.authenticate('local-signup', function(err, user, info) {
-    if (err) return res.status(500).json({ message: 'Something went wrong!' });
-    if (info) return res.status(401).json({ message: info.message });
-    if (!user) return res.status(401).json({ message: 'User already exists!' });
 
-    // User has authenticated so issue token 
-    var token = jwt.sign(user, secret, { expiresIn: 60*60*24 });
 
-    // Send back the token to the front-end to store
-    return res.status(200).json({ 
-      success: true,
-      message: "Thank you for authenticating",
-      token: token,
-      user: user
-    });
-  });
 
-  return localStrategy(req, res, next);
+function register(req, res, next) {
+
+  // calling the local signup strategy which is in config/passport.js
+  var signupStrategy = passport.authenticate('local-signup', function(err, user) {
+
+      if (err) { 
+        return next(err) 
+      }
+
+      // Creating a new token using JWT
+      var token = jwt.sign(user, secret);
+
+      // Returning token and user as JSON
+      res.json({ user: user, token: token });
+
+
+    })
+
+  signupStrategy(req, res, next);
+
 };
 
 
 function login(req, res, next) {
 
-  var localStrategy = passport.authenticate('local-login', function(err, user, info) {
-    if (err) return res.status(500).json(err);
-    if (!user) return res.status(403).json({ message: 'No user found.' });
-    if (!user.validPassword(req.body.password)) return res.status(403).json({ message: 'Authentication failed.' });
+  User.findOne({'local.email': req.body.email}, function(error, user){
 
-    var token = jwt.sign(user, secret, { expiresIn: 60*60*24 });
+    if (error) res.status(404).json({message: "There is no user registered with that email."})
 
-    return res.status(200).json({
-      success: true,
-      message: 'Welcome!',
-      token: token,
-      user: user
-    });
+    // compare password with bcrypt encrypted password
+    if (bcrypt.compareSync(req.body.password, user.local.password)) {
+
+      // If the credentials are valid, create JWT token & return user and token as JSON
+      var token = jwt.sign(user, secret, { expiresIn: 60*60*24 });
+      res.json({ user: user, token: token });
+
+
+    } else {
+
+      // if password is not correct, an error message is shown
+      res.status(401).json({message: "Incorrect password"});
+    };
+
   });
-
-  return localStrategy(req,res,next);
-
-  // User.findOne({
-  //   "local.email": req.body.email
-  // }, function(err, user) {
-  //   if (err) return res.status(500).json(err);
-  //   if (!user) return res.status(403).json({ message: 'No user found.' });
-  //   if (!user.validPassword(req.body.password)) return res.status(403).json({ message: 'Authentication failed.' });
-
-  //   var token = jwt.sign(user, secret, { expiresIn: 60*60*24 });
-
-  //   return res.status(200).json({
-  //     success: true,
-  //     message: 'Welcome!',
-  //     token: token,
-  //     user: user
-  //   });
-  // });
-
 };
 
 module.exports = {
   login: login,
-  signup: signup
+  register: register
 }
