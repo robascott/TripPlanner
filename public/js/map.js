@@ -1,10 +1,28 @@
 $(init);
 
 function init(){
-  $(".comfirm-dest-button").on("click", getNearbyPlaces);
+  $(".confirm-dest-button").on("click", getNearbyPlaces);
+
+  var moveLeft = 20;
+  var moveDown = 10;
+
+  $("body").on('mouseenter', ".place-hours-label", function(event) {
+    $(this).next().show()
+      .css('top', e.pageY + moveDown)
+      .css('left', e.pageX + moveLeft)
+      .appendTo('body');
+  }).on('mouseleave', ".place-hours-label", function( event ) {
+    $(this).next().hide();
+  });
+
 }
 
-var markers = [];    
+var markers = [];
+
+function hoverFunction() {
+  console.log("this.next(): " + $(this).next().attr('class'));
+  $(this).next().show();
+}  
 
 
 
@@ -90,6 +108,11 @@ function getLng() {
 
 
 function getNearbyPlaces() {
+  $("#map").css('display','none');
+  $('.confirm-dest-button').remove();
+
+  console.log(markers[0]);
+
 	// Coordinates of destination
   var lat = getLat();
 	var lng = getLng();
@@ -105,22 +128,38 @@ function getNearbyPlaces() {
 	  }, callback);
 }
 
+
 function callback(results, status) {
   // example of result
   console.log(results[0]);
   if (status === google.maps.places.PlacesServiceStatus.OK) {
 
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 10; i++) {
 
-      service.getDetails(results[i], function(result, status) {
+      service.getDetails(results[i], (function(j) { return function(result, status) {
         if (status !== google.maps.places.PlacesServiceStatus.OK) {
           console.error(status);
           return;
         }
 
-        var tileContent = "<div class='suggestion-tile'><h2>" + result.name + "</h2>";
+        var tileContent = "";
 
-        var photo = result.photos[0].getUrl({'maxWidth': 200, 'maxHeight': 200});
+        // console.log(j);
+
+        console.log('j+1 % 3: ' + (j+1)%3);
+
+        if ((j+1) % 3 == 0 || j==0) {
+          console.log("creating row");
+          tileContent = "<div class='row'>";
+        }
+
+        tileContent += "<div class='col-xs-4 suggestion-tile'>";
+
+        tileContent += "<h3 class='place-name'>" + result.name + "</h3>";
+
+        var place_id = result.place_id
+
+        var photo = result.photos[0].getUrl({'maxWidth': 180, 'maxHeight': 150});
         if(typeof photo !== 'undefined'){
           tileContent += "<img class='place-photo' src='" + photo + "'>";
         }
@@ -137,16 +176,15 @@ function callback(results, status) {
 
         var website = result.website;
         if(typeof website !== 'undefined'){
-          tileContent += "<a class='place-website' href='" + website + "'>" + website + "</a>";
+          tileContent += "<a class='place-website' href='" + website + "'>Website</a>";
         }
 
+        
         var openingHours = result.opening_hours
         if(typeof openingHours !== 'undefined'){
-          tileContent += "<p class=place-hours-label>Opening Hours</p>";
+          tileContent += "<a href='#' class='place-hours-label'>Opening Hours</a>";
 
-          var openingHoursDiv = "<div class='place-hours-div'>"
-
-          //console.log(openingHours.weekday_text);
+          var openingHoursDiv = "<div class='place-hours-pop-up'>"
 
           openingHours.weekday_text.forEach(function(day) {
             openingHoursDiv += "<p>" + day + "</p>";
@@ -157,14 +195,30 @@ function callback(results, status) {
           tileContent += openingHoursDiv;
         }
 
-        tileContent += "</div>"
+        // closing column div
+        tileContent += "</div>";
+
+        //closing row div
+        if ((j+1) % 3 === 0 || j==0) {
+          tileContent += "</div>";
+        }
 
         $("#suggestions").append(tileContent);
 
-      });
+        // $('.place-hours-label').hover(function(e) {
+        //   $('.place-hours-pop-up').show()
+        //     .css('top', e.pageY + moveDown)
+        //     .css('left', e.pageX + moveLeft)
+        //     .appendTo('body');
+        // }, function() {
+        //   $('div#pop-up').hide();
+        // });
 
+      }})(i));
     	
     }
+
+
   }
 }
 
