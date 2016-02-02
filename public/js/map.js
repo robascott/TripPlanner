@@ -95,6 +95,10 @@ function getTitle() {
 
 function getNearbyPlaces() {
 	// Coordinates of destination
+
+  createTrip();
+
+
   var lat = getLat();
 	var lng = getLng();
 
@@ -108,6 +112,28 @@ function getNearbyPlaces() {
 	    //types: ['store']
 	  }, callback);
 }
+
+
+function createTrip() {
+  event.preventDefault();
+  var currentUserId = getCurrentUserId();
+
+  $.ajax({
+    url: 'http://localhost:3000/trips',
+    type: 'post',
+    data: { trip: {
+      "destination": getTitle(),
+      "longitude" : getLng(),
+      "latitude" : getLat(),
+      "user" : currentUserId
+    }
+    }
+    }).done(function(trip) {
+      console.log(trip);
+
+    });
+}
+
 
 function callback(results, status) {
   console.log(results[0]);

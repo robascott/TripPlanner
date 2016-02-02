@@ -4,7 +4,6 @@ function init(){
   
   checkForId();
 
-  $("form#newTripForm").on("submit", createTrip);
   $("#testDelete").on("click", deleteTrip)
 
 }	
@@ -26,25 +25,6 @@ function checkForId() {
 
 }
 
-function createTrip() {
-	event.preventDefault();
-	var currentUserId = getCurrentUserId();
-
-	$.ajax({
-		url: 'http://localhost:3000/trips',
-		type: 'post',
-		data: { trip: {
-			"destination": $("input#destination").val(),
-			"longitude" : $("input#longitude").val(),
-			"latitude" : $("input#latitude").val(),
-			"user" : currentUserId
-		}
-		}
-		}).done(function(trip) {
-			console.log(trip);
-
-		});
-}
 
 function deleteTrip() {
 	console.log("I'VE BEEN CLICKED");
