@@ -4,8 +4,18 @@ var passport = require("passport");
 
 var usersController = require('../controllers/usersController');
 var authenticationsController = require('../controllers/authenticationsController');
+var apiController = require('../controllers/apiController');
 
 var User   = require('../models/user');
+
+router.route('/trips')
+	.get(apiController.showCreateTripForm)
+	.post(apiController.createTrip);
+
+router.route('/trips/:id')
+	.delete(apiController.removeTrip);	
+
+
 
 router.get('/login', usersController.showLogin);
 router.get('/signup', usersController.showSignup);

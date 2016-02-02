@@ -107,6 +107,14 @@ function getLng() {
 }
 
 
+
+// GET STRING TITLE FROM GOOGLE AUTOCOMPLETE OBJECT
+
+function getTitle() {
+  return markers[0].title;
+}
+
+
 function getNearbyPlaces() {
   $("#map").css('display','none');
   $('.confirm-dest-button').remove();
@@ -114,6 +122,11 @@ function getNearbyPlaces() {
   console.log(markers[0]);
 
 	// Coordinates of destination
+
+  // Calling function to create trip once the user clicks confirm destination button
+  createTrip();
+
+
   var lat = getLat();
 	var lng = getLng();
 
@@ -126,6 +139,29 @@ function getNearbyPlaces() {
 	    radius: 500
 	    //types: ['store']
 	  }, callback);
+}
+
+
+// CREATING TRIP WITH INFO FROM GOOGLE AUTOCOMPLETE
+
+function createTrip() {
+  event.preventDefault();
+  var currentUserId = getCurrentUserId();
+
+  $.ajax({
+    url: 'http://localhost:3000/trips',
+    type: 'post',
+    data: { trip: {
+      "destination": getTitle(),
+      "longitude" : getLng(),
+      "latitude" : getLat(),
+      "user" : currentUserId
+    }
+    }
+    }).done(function(trip) {
+      console.log(trip);
+
+    });
 }
 
 
