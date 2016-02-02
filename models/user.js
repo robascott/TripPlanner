@@ -5,7 +5,8 @@ var userSchema = new mongoose.Schema({
   local: {
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true }
-  }
+  },
+  trips: [{type: mongoose.Schema.ObjectId, ref: 'Trip'}]
 });
 
 userSchema.statics.encrypt = function(password) {

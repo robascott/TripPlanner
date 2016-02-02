@@ -1,19 +1,20 @@
 $(init);
 
 function init(){
+  
   checkForId();
+
 }	
 
 
 function getCurrentUserId(){
-	return localStorage.getItem('currentUserId')
+	return localStorage.getItem('currentUserId');
 }
 
 function checkForId() {
 
 	if(getCurrentUserId()) {
-
-		console.log("You are indeed logged in")
+		console.log("You are indeed logged in");
 	}
 
 	else {
@@ -21,3 +22,6 @@ function checkForId() {
 	}
 
 }
+
+
+
