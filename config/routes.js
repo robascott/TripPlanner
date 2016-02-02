@@ -8,8 +8,15 @@ var apiController = require('../controllers/apiController');
 
 var User   = require('../models/user');
 
-router.get('/createtrip', apiController.showCreateTripForm);
-router.post('/createtrip', apiController.createTrip);
+router.route('/trips')
+	.get(apiController.showCreateTripForm)
+	.post(apiController.createTrip);
+
+router.route('/trips/:id')
+	.delete(apiController.removeTrip);	
+
+
+
 router.get('/login', usersController.showLogin);
 router.get('/signup', usersController.showSignup);
 router.get('/planner', usersController.showPlanner);

@@ -88,6 +88,10 @@ function getLng() {
 	return markers[0].position.lng();
 }
 
+function getTitle() {
+  return markers[0].title;
+}
+
 
 function getNearbyPlaces() {
 	// Coordinates of destination

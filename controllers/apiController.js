@@ -14,7 +14,7 @@ function createTrip(req,res) {
 	var trip = new Trip(req.body.trip);
 	trip.save(function(err, trip) {
 		if(err) return res.status(500).send(err);
-		
+
 		var userId = req.body.trip.user;
 		User.findOne({ _id : userId} , function(err, user) {
 			user.trips.push(trip._id);
@@ -25,7 +25,22 @@ function createTrip(req,res) {
 }
 
 
+function removeTrip(req,res) {
+
+	var id = req.params.id;
+
+	Trip.findOne({ _id: id}, function(err, trip) {
+		trip.remove();
+	})
+
+	if (err) return res.status(500).send(err);
+	res.status(200).send();
+
+}
+
+
 module.exports = {
   showCreateTripForm: showCreateTripForm,
-  createTrip: createTrip
+  createTrip: createTrip,
+  removeTrip: removeTrip
 }

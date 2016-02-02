@@ -17,4 +17,13 @@ userSchema.methods.validPassword = function(password) {
   return bcrypt.compareSync(password, this.local.password);
 }
 
+// FUNCTION TO DELETE ALL TRIPS ASSOCIATED TO THE USER WHEN THE USER IS REMOVED
+
+userSchema.pre('remove', function(next){
+	console.log("pre function called");
+	console.log(this)
+	this.model('Trip').remove({ user: this._id}).exec();
+	next();
+})
+
 module.exports = mongoose.model("User", userSchema);

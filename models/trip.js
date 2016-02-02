@@ -12,5 +12,18 @@ var tripSchema = new mongoose.Schema({
 });
 
 
+tripSchema.pre('remove', function(next){
+
+	console.log("GOT TO LINE 17");
+	console.log(this.model);
+    this.model('User').update(
+        {_id: {$in: this.users}}, 
+        {$pull: {trips: this._id}}, 
+        {multi: true},
+        next
+    );
+});
+
+
 
 module.exports = mongoose.model("Trip", tripSchema);
