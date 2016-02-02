@@ -106,6 +106,7 @@ function getNearbyPlaces() {
 }
 
 function callback(results, status) {
+  // example of result
   console.log(results[0]);
   if (status === google.maps.places.PlacesServiceStatus.OK) {
 
@@ -129,9 +130,31 @@ function callback(results, status) {
           tileContent += "<p class='place-vicinity'>" + vicinity + "</p>";
         }
 
+        var rating = result.rating;
+        if(typeof rating !== 'undefined'){
+          tileContent += "<p class='place-rating'>Rating: " + rating + "</p>";
+        }
+
         var website = result.website;
         if(typeof website !== 'undefined'){
           tileContent += "<a class='place-website' href='" + website + "'>" + website + "</a>";
+        }
+
+        var openingHours = result.opening_hours
+        if(typeof openingHours !== 'undefined'){
+          tileContent += "<p class=place-hours-label>Opening Hours</p>";
+
+          var openingHoursDiv = "<div class='place-hours-div'>"
+
+          //console.log(openingHours.weekday_text);
+
+          openingHours.weekday_text.forEach(function(day) {
+            openingHoursDiv += "<p>" + day + "</p>";
+          });
+
+          openingHoursDiv += "</div>";
+
+          tileContent += openingHoursDiv;
         }
 
         tileContent += "</div>"

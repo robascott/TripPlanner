@@ -12,6 +12,7 @@ var expressJWT     = require('express-jwt');
 var flash          = require('connect-flash');
 var ejsLayouts     = require('express-ejs-layouts');
 var session        = require('express-session');
+var sass           = require('node-sass-middleware');
 var app            = express();
 
 var config         = require('./config/config');
@@ -36,6 +37,15 @@ app.use(methodOverride(function(req, res){
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(ejsLayouts);
+
+app.use(sass({
+src: path.join(__dirname, '/src'),
+dest: path.join(__dirname, '/public'),
+debug: true,
+outputStyle: 'compressed'
+}));
+
+
 app.use(express.static(__dirname + '/public'));
 app.use(cookieParser());
 app.use(morgan('dev'));
