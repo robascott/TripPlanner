@@ -30,6 +30,7 @@ function removeTrip(req,res) {
 	var id = req.params.id;
 
 	Trip.findOne({ _id: id}, function(err, trip) {
+		// console.log(trip);
 		trip.remove();
 	})
 

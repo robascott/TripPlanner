@@ -12,17 +12,21 @@ var tripSchema = new mongoose.Schema({
 });
 
 
-tripSchema.pre('remove', function(next){
+// tripSchema.pre('remove', function(next){
 
-	console.log("GOT TO LINE 17");
-	console.log(this.model);
-    this.model('User').update(
-        {_id: {$in: this.users}}, 
-        {$pull: {trips: this._id}}, 
-        {multi: true},
-        next
-    );
-});
+// 	console.log("GOT TO LINE 17");
+// 	console.log(this.model('User'));
+
+//     this.model('User').update(
+//         {_id: {$in: this.users}}, 
+//         {$pull: {trips: this._id}}, 
+//         {multi: true},
+//         next
+//     );
+
+//     console.log("DID IT GET TO HERE? LINE 28");
+//     console.log(this._id)
+// });
 
 
 

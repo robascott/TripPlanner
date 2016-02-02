@@ -88,6 +88,10 @@ function getLng() {
 	return markers[0].position.lng();
 }
 
+
+
+// GET STRING TITLE FROM GOOGLE AUTOCOMPLETE OBJECT
+
 function getTitle() {
   return markers[0].title;
 }
@@ -96,6 +100,7 @@ function getTitle() {
 function getNearbyPlaces() {
 	// Coordinates of destination
 
+  // Calling function to create trip once the user clicks confirm destination button
   createTrip();
 
 
@@ -113,6 +118,8 @@ function getNearbyPlaces() {
 	  }, callback);
 }
 
+
+// CREATING TRIP WITH INFO FROM GOOGLE AUTOCOMPLETE
 
 function createTrip() {
   event.preventDefault();

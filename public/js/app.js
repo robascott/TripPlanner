@@ -25,13 +25,14 @@ function checkForId() {
 
 }
 
+// TESTING FUNCTION TO DELETE TRIP (WORKS ON NEWTRIP.EJS)
 
 function deleteTrip() {
 	console.log("I'VE BEEN CLICKED");
 	event.preventDefault();
 
 	$.ajax({
-		url: 'http://localhost:3000/trips/56b0ec7b7b2161e133082e02',
+		url: 'http://localhost:3000/trips/56b0ff41b5cdd2d736bffade',
 		type: 'delete',
 	}).done(function(){
 		console.log('deleted')
