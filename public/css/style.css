@@ -39,3 +39,11 @@ html, body { height: 100%; margin: 0; padding: 0; }
 .pac-container {
   font-family: Roboto;
 }
+
+.place-website {
+  display: inline;
+}
+
+.place-vicinity {
+  margin-bottom: 0;
+}

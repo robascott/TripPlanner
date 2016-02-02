@@ -90,44 +90,57 @@ function getLng() {
 
 
 function getNearbyPlaces() {
-	var lat = getLat();
+	// Coordinates of destination
+  var lat = getLat();
 	var lng = getLng();
-
-	console.log(lat);
-	console.log(lng);
-
-	// THIS METHOD DOESN'T WORK
-
-	// var method = "get"
-	// var url    = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + lng + "&rankby=distance&types=museum&key=AIzaSyAqfzJHPcFM7dhDkoJrDjsQWmrN_ADUwoA";
-
-	// console.log(url);
-	
-	// $.ajax({
-	// 	url: url, 
-	// 	type: "GET",   
-	// 	dataType: 'jsonp',
-	// 	cache: false,
-	// 	success: function(response){                          
-	// 		console.log(response);                   
-	// 	}           
-	// });
 
 	var dest = {lat: lat, lng: lng}; 
 
-	var service = new google.maps.places.PlacesService(map);
+	// 'service' shouldn't be global
+  service = new google.maps.places.PlacesService(map);
 	  service.nearbySearch({
 	    location: dest,
-	    radius: 500,
-	    types: ['store']
+	    radius: 500
+	    //types: ['store']
 	  }, callback);
 }
 
 function callback(results, status) {
+  console.log(results[0]);
   if (status === google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) {
-    	console.log(results[i].name);
-      $("#suggestions").prepend("<div class='suggestion-tile'><h2>" + results[i].name + "</h2></div>");
+
+    for (var i = 0; i < 5; i++) {
+
+      service.getDetails(results[i], function(result, status) {
+        if (status !== google.maps.places.PlacesServiceStatus.OK) {
+          console.error(status);
+          return;
+        }
+
+        var tileContent = "<div class='suggestion-tile'><h2>" + result.name + "</h2>";
+
+        var photo = result.photos[0].getUrl({'maxWidth': 200, 'maxHeight': 200});
+        if(typeof photo !== 'undefined'){
+          tileContent += "<img class='place-photo' src='" + photo + "'>";
+        }
+
+        var vicinity = result.vicinity;
+        if(typeof vicinity !== 'undefined'){
+          tileContent += "<p class='place-vicinity'>" + vicinity + "</p>";
+        }
+
+        var website = result.website;
+        if(typeof website !== 'undefined'){
+          tileContent += "<a class='place-website' href='" + website + "'>" + website + "</a>";
+        }
+
+        tileContent += "</div>"
+
+        $("#suggestions").append(tileContent);
+
+      });
+
+    	
     }
   }
 }
