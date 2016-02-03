@@ -74,11 +74,12 @@ html, body { height: 100%; margin: 0; padding: 0; }
 
 .suggestion-tile {
   position: relative;
-  width: 220px
+  width: 300px;
+  height: 350px;
 }
 
 .suggestion-tile:hover {
-  border: 2px solid red;
+  background-color: #ecf0f1;
 }
 
 .place-hours-pop-up {
@@ -91,3 +92,12 @@ html, body { height: 100%; margin: 0; padding: 0; }
   border: 1px solid #1a1a1a;
   font-size: 90%;
 }
+
+.added-place {
+  border: 2px solid red;
+}
+
+.hidden-button {
+  display: none;
+}
+

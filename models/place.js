@@ -8,5 +8,20 @@ var placeSchema = new mongoose.Schema({
 });
 
 
+// MIDDLEWARE TO REMOVE THE REFERENCE TO THE DELETED PLACE FROM THE TRIP'S PLACES ARRAY
+
+placeSchema.pre('remove', function(next){
+
+    this.model('Trip').update(
+        {_id: this.trip}, 
+        {$pull: {places: this._id}}, 
+        {multi: true},
+        function(err, numAffected) {
+    		next();
+        }
+    );
+    
+});
+
 
 module.exports = mongoose.model("Place", placeSchema);

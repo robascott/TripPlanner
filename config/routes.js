@@ -18,6 +18,9 @@ router.route('/trips/:id')
 router.route('/trips/:id/places')
 	.post(apiController.createPlace);
 
+router.route('/trips/:tripid/places/:placeid')
+	.delete(apiController.removePlace);
+
 
 router.route('/users/:id/trips')
 	.get(apiController.showTripsList);

@@ -49,6 +49,23 @@ function createPlace(req,res) {
 }
 
 
+// FUNCTION TO REMOVE A SINGLE PLACE FROM A TRIP
+
+function removePlace(req,res) {
+
+	var tripId = req.params.tripid;
+	var placeId = req.params.placeid;
+
+	Place.findOne({ _id: placeId}, function(err, place) {
+		place.remove();
+		
+		if (err) return res.status(500).send(err);
+		res.status(200).send();
+
+	})	
+}
+
+
 
 function showTripsList(req,res) {
 
@@ -94,5 +111,6 @@ module.exports = {
   createTrip: createTrip,
   removeTrip: removeTrip,
   showTripsList : showTripsList,
-  createPlace : createPlace
+  createPlace : createPlace,
+  removePlace: removePlace
 }

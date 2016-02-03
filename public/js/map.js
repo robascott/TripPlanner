@@ -27,6 +27,11 @@ function init(){
 function addPlace() {
   var selectedPlaceId = $(this).data('place-id');
 
+  $(this).parent().toggleClass('added-place');
+
+  var addPlaceButton = $(".add-place-button[data-place-id='" + selectedPlaceId + "']")
+  addPlaceButton.toggleClass('hidden-button');
+
   $.ajax({
     url: 'http://localhost:3000/trips/' + currentTrip + '/places',
     type: 'post',
@@ -36,35 +41,37 @@ function addPlace() {
       }
     }
   }).done(function(place) {
-      console.log(place);
-      console.log(place._id);
-      $(".remove-place-button[data-place-id='" + selectedPlaceId + "']").data('place-db-id', place._id);
+    var removePlaceButton = $(".remove-place-button[data-place-id='" + selectedPlaceId + "']");
+    removePlaceButton.data('place-db-id', place._id);
+    removePlaceButton.toggleClass('hidden-button');
 
-      console.log($(".remove-place-button[data-place-id='" + selectedPlaceId + "']").data('place-db-id'));
-
-      //removeButton.css('display','inline-block');
+    //removeButton.css('display','inline-block');
   });
 }
 
 
 function removePlace() {
   var selectedPlaceDbId = $(this).data('place-db-id');
+  var selectedPlaceId = $(this).data('place-id');
+
+  $(this).parent().toggleClass('added-place');
+
+  var removePlaceButton = $(".remove-place-button[data-place-id='" + selectedPlaceId + "']");
+  removePlaceButton.toggleClass('hidden-button');
 
   $.ajax({
     url: 'http://localhost:3000/trips/' + currentTrip + '/places/' + selectedPlaceDbId,
     type: 'delete'
   }).done(function(place) {
-      console.log(place);
+
+    var addPlaceButton = $(".add-place-button[data-place-id='" + selectedPlaceId + "']");
+    addPlaceButton.toggleClass('hidden-button');
+
   });
 }
 
 
 var markers = [];
-
-function hoverFunction() {
-  console.log("this.next(): " + $(this).next().attr('class'));
-  $(this).next().show();
-}
 
 
 
@@ -161,14 +168,10 @@ function getNearbyPlaces() {
   $("#map").css('display','none');
   $('.confirm-dest-button').remove();
 
-  console.log(markers[0]);
-
-	// Coordinates of destination
-
   // Calling function to create trip once the user clicks confirm destination button
   createTrip();
 
-
+  // Coordinates of destination
   var lat = getLat();
 	var lng = getLng();
 
@@ -224,7 +227,7 @@ function callback(results, status) {
 
       tileContent += "<p class='place-rating' data-grid-id='" + i + "'></p>";
 
-      tileContent += "<a class='place-website' data-grid-id='" + i + "'>Website</a><br>";
+      tileContent += "<a class='place-website' data-grid-id='" + i + "'></a><br>";
 
       // closing tile div
       tileContent += "</div>";
@@ -238,15 +241,14 @@ function callback(results, status) {
     $("#suggestions").append(tileContent);
 
 
-    
     for (i = 0; i < 10; i++) {
 
+      // add delay to this
       service.getDetails(results[i], (function(j) { return function(result, status) {
         if (status !== google.maps.places.PlacesServiceStatus.OK) {
           console.error(status);
           return;
         }
-
 
         var tileContent = "";
 
@@ -254,9 +256,13 @@ function callback(results, status) {
 
         var place_id = result.place_id
 
-        var photo = result.photos[0].getUrl({'maxWidth': 180, 'maxHeight': 150});
-        if(typeof photo !== 'undefined'){
+        var photos = result.photos
+        if(typeof photos !== 'undefined'){
+          var photo = photos[0].getUrl({'maxWidth': 180, 'maxHeight': 150});
           $(".place-photo[data-grid-id='" + j + "']").attr('src', photo);
+        } else {
+          $(".place-photo[data-grid-id='" + j + "']").attr('src', 'http://i.imgur.com/DwMWyOB.png');
+          $(".place-photo[data-grid-id='" + j + "']").css('max-width', 180);
         }
 
         var vicinity = result.vicinity;
@@ -271,6 +277,7 @@ function callback(results, status) {
 
         var website = result.website;
         if(typeof website !== 'undefined'){
+          $(".place-website[data-grid-id='" + j + "']").text('Website');
           $(".place-website[data-grid-id='" + j + "']").attr('href',website);
         }
 
@@ -292,10 +299,10 @@ function callback(results, status) {
         }
 
         var addButton = "<input type='button' class='add-place-button' data-place-id='" + place_id + "'value='Add'>"
-        var removeButton = "<input type='button' class='remove-place-button' data-place-id='" + place_id + "'value='Remove'>";
+        var removeButton = "<input type='button' class='remove-place-button hidden-button' data-place-id='" + place_id + "'value='Remove'>";
 
         $(".suggestion-tile[data-grid-id='" + j + "']").append(addButton);
-        $(".suggestion-tile[data-grid-id='" + j + "']").append(removeButton);
+        $(".suggestion-tile[data-grid-id='" + j + "']").append(removeButton); 
 
 
       }})(i));
