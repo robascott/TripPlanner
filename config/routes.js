@@ -13,7 +13,10 @@ router.route('/trips')
 	.post(apiController.createTrip);
 
 router.route('/trips/:id')
-	.delete(apiController.removeTrip);	
+	.get(apiController.showTripSummary)
+	.delete(apiController.removeTrip);
+
+	
 
 router.route('/trips/:id/places')
 	.post(apiController.createPlace);
