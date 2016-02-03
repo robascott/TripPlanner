@@ -22,7 +22,6 @@ router.route('/trips/:id/places')
 router.route('/users/:id/trips')
 	.get(apiController.showTripsList);
 
-
 router.get('/login', usersController.showLogin);
 router.get('/signup', usersController.showSignup);
 router.get('/planner', usersController.showPlanner);
