@@ -32,7 +32,7 @@ function deleteTrip() {
 	event.preventDefault();
 
 	$.ajax({
-		url: 'http://localhost:3000/trips/56b1cc103023da333d8d04e6',
+		url: 'http://localhost:3000/trips/56b1d9034ca3fb2942c2415b',
 		type: 'delete',
 	}).done(function(){
 		console.log('deleted')
