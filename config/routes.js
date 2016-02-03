@@ -16,7 +16,6 @@ router.route('/trips/:id')
 	.delete(apiController.removeTrip);	
 
 
-
 router.get('/login', usersController.showLogin);
 router.get('/signup', usersController.showSignup);
 router.get('/planner', usersController.showPlanner);

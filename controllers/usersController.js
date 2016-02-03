@@ -19,10 +19,15 @@ function usersIndex(req, res) {
   });
 }
 
+// this is where we can use the current user to show their profile
 function usersShow(req, res){
+  // console.log("got to users show")
+  // console.log(req.params.id)
   User.findById(req.params.id, function(err, user){
+    console.log("This should be the" + user)
     if (err) return res.status(404).json({message: 'Something went wrong.'});
-    res.status(200).json({ user: user });
+    res.render('profile', {user: user});
+    
   });
 }
 
