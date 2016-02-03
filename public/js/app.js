@@ -9,7 +9,7 @@ function init(){
   // ADDING EVENT LISTENERS TO BUTTONS 
   $("body").on("click", ".delete-trip-button", deleteTrip);
   $('#showTrips').on("click", showTrips);
-  $('#show-trip-summary').on("click", showTripSummary);
+  $('#show-trip-summary').on("click", getSavedPlaces);
 
 }	
 
@@ -36,9 +36,26 @@ function checkForId() {
 }
 
 
+
+// SHOWING SELECTED PLACES FOR A SINGLE TRIP
+
+function showTrip(data) { 
+
+	var destination = data.destination;
+	var lng = data.longitude;
+	var lat = data.latitude;
+	var placesArray = data.placesArray;
+
+	console.log("running show trip");
+	console.log(destination, lng, lat, placesArray);
+
+}
+
+
+
 // SHOWING TRIP SUMMARY WHEN USER HAS FINISHED ADDING PLACES 
 
-function showTripSummary() {
+function getSavedPlaces() {
 
 	event.preventDefault();
 
@@ -47,10 +64,11 @@ function showTripSummary() {
 		type: 'get',
 	}).done(function(data) {
 
-		console.log(data);
+		showTrip(data);
 
 	});
 }
+
 
 
 // SHOWING LIST OF ALL TRIPS FOR CURRENT USER 
@@ -78,6 +96,7 @@ function showTrips() {
 
 	});
 }
+
 
 
 // FUNCTION TO DELETE TRIP

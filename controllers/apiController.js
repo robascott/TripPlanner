@@ -96,6 +96,7 @@ function showTripsList(req,res) {
 
 
 
+
 // FUNCTION TO REMOVE A SINGLE TRIP THE TRIP
 
 
