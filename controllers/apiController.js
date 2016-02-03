@@ -12,7 +12,6 @@ function showCreateTripForm(req,res) {
 
 // FUNCTION TO CREATE A TRIP AND PUSH IT TO THE USERS's TRIPS ARRAY // 
 
-
 function createTrip(req,res) {
 
 	var trip = new Trip(req.body.trip);
@@ -27,6 +26,7 @@ function createTrip(req,res) {
 		res.status(201).send(trip);
 	})
 }
+
 
 
 
@@ -50,6 +50,35 @@ function createPlace(req,res) {
 
 
 
+
+// PULLING FROM DB LIST OF PLACES THAT BELONG TO A TRIP
+
+function showTripSummary(req,res) {
+
+	var id = req.params.id;
+
+	Trip.findOne({_id: id}).populate('places').exec(function(err, trip) {
+
+		if (err) return res.status(500).send(err);
+
+		var newTripObject = { 
+
+			destination : trip.destination,
+			longitude   : trip.longitude,
+			latitude    : trip.latitude,
+			placesArray : trip.places
+		}
+
+		res.status(200).send(newTripObject);
+
+	})
+}
+
+
+
+
+// SHOW LIST OF TRIPS FOR LOGGED IN USER
+
 function showTripsList(req,res) {
 
 	var id = req.params.id;
@@ -62,8 +91,8 @@ function showTripsList(req,res) {
 		res.status(200).send(user.trips);
 
 	})
-
 }
+
 
 
 
@@ -94,5 +123,6 @@ module.exports = {
   createTrip: createTrip,
   removeTrip: removeTrip,
   showTripsList : showTripsList,
-  createPlace : createPlace
+  createPlace : createPlace,
+  showTripSummary : showTripSummary
 }
