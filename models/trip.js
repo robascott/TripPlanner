@@ -12,21 +12,28 @@ var tripSchema = new mongoose.Schema({
 });
 
 
-// tripSchema.pre('remove', function(next){
+// MIDDLEWARE TO REMOVE THE REFERENCE TO THE DELETED TRIP FROM THE USER'S TRIPS ARRAY
 
-// 	console.log("GOT TO LINE 17");
-// 	console.log(this.model('User'));
+tripSchema.pre('remove', function(next){
 
-//     this.model('User').update(
-//         {_id: {$in: this.users}}, 
-//         {$pull: {trips: this._id}}, 
-//         {multi: true},
-//         next
-//     );
+	console.log("GOT TO LINE 17");
+	console.log(this._id);
+	console.log(this.user);
 
-//     console.log("DID IT GET TO HERE? LINE 28");
-//     console.log(this._id)
-// });
+    this.model('User').update(
+        {_id: this.user}, 
+        {$pull: {trips: this._id}}, 
+        {multi: true},
+        function(err, numAffected) {
+        	console.log("DID IT GET TO HERE? LINE 28");
+    		console.log(err);
+    		console.log(numAffected);
+    		next()
+        }
+    );
+
+    
+});
 
 
 

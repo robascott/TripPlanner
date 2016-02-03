@@ -1,10 +1,13 @@
 $(init);
 
+// var tripId;
+
 function init(){
-  
+  	
   checkForId();
 
-  $("#testDelete").on("click", deleteTrip)
+  $("#testDelete").on("click", deleteTrip);
+  $('#showTrips').on("click", showTrips);
 
 }	
 
@@ -25,14 +28,31 @@ function checkForId() {
 
 }
 
-// TESTING FUNCTION TO DELETE TRIP (WORKS ON NEWTRIP.EJS)
 
-function deleteTrip() {
-	console.log("I'VE BEEN CLICKED");
+// FUNCTION 
+
+function showTrips() {
+
 	event.preventDefault();
 
 	$.ajax({
-		url: 'http://localhost:3000/trips/56b0ff41b5cdd2d736bffade',
+		url: 'http://localhost:3000/users/' + getCurrentUserId() + '/trips',
+		type: 'get',
+	}).done(function(data){
+		console.log('AJAX WORKED');
+		console.log(data);
+	});
+}
+
+
+// TESTING FUNCTION TO DELETE TRIP (WORKS ON NEWTRIP.EJS)
+
+function deleteTrip() {
+
+	event.preventDefault();
+
+	$.ajax({
+		url: 'http://localhost:3000/trips/56b1d9034ca3fb2942c2415b',
 		type: 'delete',
 	}).done(function(){
 		console.log('deleted')
