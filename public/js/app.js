@@ -9,7 +9,7 @@ function init(){
   // ADDING EVENT LISTENERS TO BUTTONS 
   $("body").on("click", ".delete-trip-button", deleteTrip);
   $('#showTrips').on("click", showTrips);
-  $('#show-trip-summary').on("click", getSavedPlaces);
+  $('#show-trip-summary').on("click", showTrip);
 
 }	
 
@@ -39,36 +39,35 @@ function checkForId() {
 
 // SHOWING SELECTED PLACES FOR A SINGLE TRIP
 
-function showTrip(data) { 
+var viewMode;
 
-	var destination = data.destination;
-	var lng = data.longitude;
-	var lat = data.latitude;
-	var placesArray = data.placesArray;
+function showTrip(data) {
 
-	console.log("running show trip");
-	console.log(destination, lng, lat, placesArray);
+	$("#suggestions").hide();
 
-}
-
-
-
-// SHOWING TRIP SUMMARY WHEN USER HAS FINISHED ADDING PLACES 
-
-function getSavedPlaces() {
-
-	event.preventDefault();
+	viewMode = "show";
 
 	$.ajax({
 		url: 'http://localhost:3000/trips/' + currentTrip,
 		type: 'get',
 	}).done(function(data) {
 
-		showTrip(data);
+		var destination = data.destination;
+		var placesArray = data.placesArray;
+
+		var placeIdsArray = [];
+
+		placesArray.forEach(function(place) {
+			placeIdsArray.push({placeId: place.place_id});
+		})
+
+		console.log(placeIdsArray);
+
+		createTiles(placeIdsArray);
 
 	});
-}
 
+}
 
 
 // SHOWING LIST OF ALL TRIPS FOR CURRENT USER 

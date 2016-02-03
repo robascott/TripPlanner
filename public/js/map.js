@@ -165,6 +165,8 @@ function getTitle() {
 
 
 function getNearbyPlaces() {
+  viewMode = 'edit';
+
   $("#map").css('display','none');
   $('.confirm-dest-button').remove();
 
@@ -209,105 +211,118 @@ function createTrip() {
 }
 
 
+function createTiles(places) {
+
+  var tileContent = "<div class='row'>";
+
+  // Add skeleton
+  for (i=0; i<places.length; i++) {
+
+    tileContent += "<div class='col-xs-4 suggestion-tile' data-grid-id='" + i + "'>";
+
+    tileContent += "<h3 class='place-name' data-grid-id='" + i + "'></h3>";
+
+    tileContent += "<img class='place-photo' data-grid-id='" + i + "'>";
+
+    tileContent += "<p class='place-vicinity' data-grid-id='" + i + "'></p>";
+
+    tileContent += "<p class='place-rating' data-grid-id='" + i + "'></p>";
+
+    tileContent += "<a class='place-website' data-grid-id='" + i + "'></a><br>";
+
+    // closing tile div
+    tileContent += "</div>";
+
+    if ((((i+1) % 3) == 0 )) {
+      tileContent += "</div><div class='row'>";
+    }
+
+  }
+
+  if (viewMode == "edit") {
+    $("#suggestions").append(tileContent);
+  } else {
+    $("#trip-summary").append(tileContent);
+  }
+  
+
+
+  for (i = 0; i < places.length; i++) {
+
+    // add delay to this
+    service.getDetails(places[i], (function(j) { return function(result, status) {
+      if (status !== google.maps.places.PlacesServiceStatus.OK) {
+        console.error(status);
+        return;
+      }
+
+      var tileContent = "";
+
+      $(".place-name[data-grid-id='" + j + "']").text(result.name);
+
+      var place_id = result.place_id
+
+      var photos = result.photos
+      if(typeof photos !== 'undefined'){
+        var photo = photos[0].getUrl({'maxWidth': 180, 'maxHeight': 150});
+        $(".place-photo[data-grid-id='" + j + "']").attr('src', photo);
+      } else {
+        $(".place-photo[data-grid-id='" + j + "']").attr('src', 'http://i.imgur.com/DwMWyOB.png');
+        $(".place-photo[data-grid-id='" + j + "']").css('max-width', 180);
+      }
+
+      var vicinity = result.vicinity;
+      if(typeof vicinity !== 'undefined'){
+        $(".place-vicinity[data-grid-id='" + j + "']").text(vicinity);
+      }
+
+      var rating = result.rating;
+      if(typeof rating !== 'undefined'){
+        $(".place-rating[data-grid-id='" + j + "']").text("Rating: " + rating);
+      }
+
+      var website = result.website;
+      if(typeof website !== 'undefined'){
+        $(".place-website[data-grid-id='" + j + "']").text('Website');
+        $(".place-website[data-grid-id='" + j + "']").attr('href',website);
+      }
+
+      
+      var openingHours = result.opening_hours
+      if(typeof openingHours !== 'undefined'){
+        var hoursHTML = "<a href='#' class='place-hours-label' data-grid-id='" + j + "'>Opening Hours</a>";
+
+        hoursHTML += "<div class='place-hours-pop-up'>";
+
+        openingHours.weekday_text.forEach(function(day) {
+          hoursHTML += "<p>" + day + "</p>";
+        });
+
+        hoursHTML += "</div><br>";
+
+        $(".place-website[data-grid-id='" + j + "']").after(hoursHTML);
+
+      }
+
+      var addButton = "<input type='button' class='add-place-button' data-place-id='" + place_id + "'value='Add'>"
+      var removeButton = "<input type='button' class='remove-place-button hidden-button' data-place-id='" + place_id + "'value='Remove'>";
+
+      $(".suggestion-tile[data-grid-id='" + j + "']").append(addButton);
+      $(".suggestion-tile[data-grid-id='" + j + "']").append(removeButton); 
+
+
+    }})(i));
+        
+  }
+}
+
+
+
+
 function callback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
 
-    var tileContent = "<div class='row'>";
-
-    // Add skeleton
-    for (i=0; i<10; i++) {
-
-      tileContent += "<div class='col-xs-4 suggestion-tile' data-grid-id='" + i + "'>";
-
-      tileContent += "<h3 class='place-name' data-grid-id='" + i + "'></h3>";
-
-      tileContent += "<img class='place-photo' data-grid-id='" + i + "'>";
-
-      tileContent += "<p class='place-vicinity' data-grid-id='" + i + "'></p>";
-
-      tileContent += "<p class='place-rating' data-grid-id='" + i + "'></p>";
-
-      tileContent += "<a class='place-website' data-grid-id='" + i + "'></a><br>";
-
-      // closing tile div
-      tileContent += "</div>";
-
-      if ((((i+1) % 3) == 0 )) {
-        tileContent += "</div><div class='row'>";
-      }
-
-    }
-
-    $("#suggestions").append(tileContent);
-
-
-    for (i = 0; i < 10; i++) {
-
-      // add delay to this
-      service.getDetails(results[i], (function(j) { return function(result, status) {
-        if (status !== google.maps.places.PlacesServiceStatus.OK) {
-          console.error(status);
-          return;
-        }
-
-        var tileContent = "";
-
-        $(".place-name[data-grid-id='" + j + "']").text(result.name);
-
-        var place_id = result.place_id
-
-        var photos = result.photos
-        if(typeof photos !== 'undefined'){
-          var photo = photos[0].getUrl({'maxWidth': 180, 'maxHeight': 150});
-          $(".place-photo[data-grid-id='" + j + "']").attr('src', photo);
-        } else {
-          $(".place-photo[data-grid-id='" + j + "']").attr('src', 'http://i.imgur.com/DwMWyOB.png');
-          $(".place-photo[data-grid-id='" + j + "']").css('max-width', 180);
-        }
-
-        var vicinity = result.vicinity;
-        if(typeof vicinity !== 'undefined'){
-          $(".place-vicinity[data-grid-id='" + j + "']").text(vicinity);
-        }
-
-        var rating = result.rating;
-        if(typeof rating !== 'undefined'){
-          $(".place-rating[data-grid-id='" + j + "']").text("Rating: " + rating);
-        }
-
-        var website = result.website;
-        if(typeof website !== 'undefined'){
-          $(".place-website[data-grid-id='" + j + "']").text('Website');
-          $(".place-website[data-grid-id='" + j + "']").attr('href',website);
-        }
-
-        
-        var openingHours = result.opening_hours
-        if(typeof openingHours !== 'undefined'){
-          var hoursHTML = "<a href='#' class='place-hours-label' data-grid-id='" + j + "'>Opening Hours</a>";
-
-          hoursHTML += "<div class='place-hours-pop-up'>";
-
-          openingHours.weekday_text.forEach(function(day) {
-            hoursHTML += "<p>" + day + "</p>";
-          });
-
-          hoursHTML += "</div><br>";
-
-          $(".place-website[data-grid-id='" + j + "']").after(hoursHTML);
-
-        }
-
-        var addButton = "<input type='button' class='add-place-button' data-place-id='" + place_id + "'value='Add'>"
-        var removeButton = "<input type='button' class='remove-place-button hidden-button' data-place-id='" + place_id + "'value='Remove'>";
-
-        $(".suggestion-tile[data-grid-id='" + j + "']").append(addButton);
-        $(".suggestion-tile[data-grid-id='" + j + "']").append(removeButton); 
-
-
-      }})(i));
-        	
-    }
+    createTiles(results.slice(0, 10));
 
   }
 }
