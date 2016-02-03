@@ -207,6 +207,8 @@ function createTrip() {
     }
     }).done(function(trip) {
       currentTrip = trip._id;
+      $("#trips-list").empty();
+      populateTripsList();
     });
 }
 
