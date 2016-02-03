@@ -7,10 +7,10 @@ function init(){
   var moveDown = 10;
 
   $("body").on('mouseenter', ".place-hours-label", function(event) {
-    $(this).next().show()
-      .css('top', e.pageY + moveDown)
-      .css('left', e.pageX + moveLeft)
-      .appendTo('body');
+    $(this).next().show();
+      // .css('top', e.pageY + moveDown)
+      // .css('left', e.pageX + moveLeft)
+      // .appendTo('body');
   }).on('mouseleave', ".place-hours-label", function( event ) {
     $(this).next().hide();
   });
@@ -166,11 +166,39 @@ function createTrip() {
 
 
 function callback(results, status) {
-  // example of result
-  console.log(results[0]);
   if (status === google.maps.places.PlacesServiceStatus.OK) {
 
-    for (var i = 0; i < 10; i++) {
+    var tileContent = "<div class='row'>";
+
+    // Add skeleton
+    for (i=0; i<10; i++) {
+
+      tileContent += "<div class='col-xs-4 suggestion-tile'>";
+
+      tileContent += "<h3 class='place-name' data-grid-id='" + i + "'></h3>";
+
+      tileContent += "<img class='place-photo' data-grid-id='" + i + "'>";
+
+      tileContent += "<p class='place-vicinity' data-grid-id='" + i + "'></p>";
+
+      tileContent += "<p class='place-rating' data-grid-id='" + i + "'></p>";
+
+      tileContent += "<a class='place-website' data-grid-id='" + i + "'>Website</a>";
+
+      // closing column div
+      tileContent += "</div>";
+
+      if ((((i+1) % 3) == 0 )) {
+        tileContent += "</div><div class='row'>";
+      }
+
+    }
+
+    $("#suggestions").append(tileContent);
+
+
+    
+    for (i = 0; i < 10; i++) {
 
       service.getDetails(results[i], (function(j) { return function(result, status) {
         if (status !== google.maps.places.PlacesServiceStatus.OK) {
@@ -180,66 +208,50 @@ function callback(results, status) {
 
         var tileContent = "";
 
-        // console.log(j);
-
-        console.log('j+1 % 3: ' + (j+1)%3);
-
-        if ((j+1) % 3 == 0 || j==0) {
-          console.log("creating row");
-          tileContent = "<div class='row'>";
-        }
-
-        tileContent += "<div class='col-xs-4 suggestion-tile'>";
-
-        tileContent += "<h3 class='place-name'>" + result.name + "</h3>";
+        $(".place-name[data-grid-id='" + j + "']").text(result.name);
 
         var place_id = result.place_id
 
         var photo = result.photos[0].getUrl({'maxWidth': 180, 'maxHeight': 150});
         if(typeof photo !== 'undefined'){
-          tileContent += "<img class='place-photo' src='" + photo + "'>";
+          $(".place-photo[data-grid-id='" + j + "']").attr('src', photo);
         }
 
         var vicinity = result.vicinity;
         if(typeof vicinity !== 'undefined'){
-          tileContent += "<p class='place-vicinity'>" + vicinity + "</p>";
+          $(".place-vicinity[data-grid-id='" + j + "']").text(vicinity);
         }
 
         var rating = result.rating;
         if(typeof rating !== 'undefined'){
-          tileContent += "<p class='place-rating'>Rating: " + rating + "</p>";
+          $(".place-rating[data-grid-id='" + j + "']").text("Rating: " + rating);
         }
 
         var website = result.website;
         if(typeof website !== 'undefined'){
-          tileContent += "<a class='place-website' href='" + website + "'>Website</a>";
+          $(".place-website[data-grid-id='" + j + "']").attr('href',website);
         }
 
         
         var openingHours = result.opening_hours
         if(typeof openingHours !== 'undefined'){
-          tileContent += "<a href='#' class='place-hours-label'>Opening Hours</a>";
+          var hoursHTML = "<a href='#' class='place-hours-label' data-grid-id='" + j + "'>Opening Hours</a>";
 
-          var openingHoursDiv = "<div class='place-hours-pop-up'>"
+          hoursHTML += "<div class='place-hours-pop-up'>";
 
           openingHours.weekday_text.forEach(function(day) {
-            openingHoursDiv += "<p>" + day + "</p>";
+            hoursHTML += "<p>" + day + "</p>";
           });
 
-          openingHoursDiv += "</div>";
+          hoursHTML += "</div>";
 
-          tileContent += openingHoursDiv;
+          $(".place-website[data-grid-id='" + j + "']").after(hoursHTML);
+
         }
+        
 
-        // closing column div
-        tileContent += "</div>";
 
-        //closing row div
-        if ((j+1) % 3 === 0 || j==0) {
-          tileContent += "</div>";
-        }
-
-        $("#suggestions").append(tileContent);
+        // $("#suggestions").append(tileContent);
 
         // $('.place-hours-label').hover(function(e) {
         //   $('.place-hours-pop-up').show()
@@ -251,12 +263,14 @@ function callback(results, status) {
         // });
 
       }})(i));
-    	
+        	
     }
-
 
   }
 }
+
+
+
 
 
 
