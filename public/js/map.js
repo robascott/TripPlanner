@@ -19,7 +19,7 @@ function init(){
 
 
   $("body").on("click", ".add-place-button", addPlace);
-  //$("body").on("click", ".add-place-button", removePlace);
+  $("body").on("click", ".remove-place-button", removePlace);
 
 }
 
@@ -37,20 +37,26 @@ function addPlace() {
     }
   }).done(function(place) {
       console.log(place);
+      console.log(place._id);
+      $(".remove-place-button[data-place-id='" + selectedPlaceId + "']").data('place-db-id', place._id);
+
+      console.log($(".remove-place-button[data-place-id='" + selectedPlaceId + "']").data('place-db-id'));
+
+      //removeButton.css('display','inline-block');
   });
 }
 
 
-// function removePlace() {
-//   var selectedPlaceId = $(this).data('place-id');
+function removePlace() {
+  var selectedPlaceDbId = $(this).data('place-db-id');
 
-//   $.ajax({
-//     url: 'http://localhost:3000/trips/' + currentTrip + '/places',
-//     type: 'delete'
-//   }).done(function(place) {
-//       console.log(place);
-//   });
-// }
+  $.ajax({
+    url: 'http://localhost:3000/trips/' + currentTrip + '/places/' + selectedPlaceDbId,
+    type: 'delete'
+  }).done(function(place) {
+      console.log(place);
+  });
+}
 
 
 var markers = [];
