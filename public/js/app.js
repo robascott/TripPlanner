@@ -39,8 +39,19 @@ function showTrips() {
 		url: 'http://localhost:3000/users/' + getCurrentUserId() + '/trips',
 		type: 'get',
 	}).done(function(data){
-		console.log('AJAX WORKED');
-		console.log(data);
+		
+		var tripsListRow;
+
+		for (i=0;i<data.length;i++) {
+
+
+			tripsListRow = "<div><h2 style='display: inline'>" + data[i].destination + "</h2><input type='button' value='Edit trip' /><input type='button' value='Delete trip' /></div>";
+
+			$("#trips-list").append(tripsListRow);
+
+		}
+
+
 	});
 }
 
