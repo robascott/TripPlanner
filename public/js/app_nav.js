@@ -6,7 +6,7 @@ function init(){
   // event listener for the the profile button
   $("#profileLink").on("click", openProfilePage);
   $("#plannerLink").on("click", openPlannerPage);
-  
+  $('.navbar-toggle collapsed').dropdown();
 }
 
 function getCurrentUserIdForNav(){
