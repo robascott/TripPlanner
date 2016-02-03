@@ -6,10 +6,13 @@ function init(){
   //CHECKING LOCAL STORAGE TO MAKE SURE USER IS LOGGED IN
   checkForId();
 
+  //LOADING TRIPS LIST FOR THE USER AS SOON AS HE/SHE LOGS IN
+  populateTripsList();
+
   // ADDING EVENT LISTENERS TO BUTTONS 
   $("body").on("click", ".delete-trip-button", deleteTrip);
   $('#showTrips').on("click", showTrips);
-  $('#show-trip-summary').on("click", getSavedPlaces);
+  $('#show-trip-summary').on("click", showTrip);
 
 }	
 
@@ -37,34 +40,43 @@ function checkForId() {
 
 
 
-// SHOWING SELECTED PLACES FOR A SINGLE TRIP
+// PULLING DATA TO SHOW IN SINGLE TRIP
 
 function showTrip(data) { 
-
-	var destination = data.destination;
-	var lng = data.longitude;
-	var lat = data.latitude;
-	var placesArray = data.placesArray;
-
-	console.log("running show trip");
-	console.log(destination, lng, lat, placesArray);
-
-}
-
-
-
-// SHOWING TRIP SUMMARY WHEN USER HAS FINISHED ADDING PLACES 
-
-function getSavedPlaces() {
-
-	event.preventDefault();
 
 	$.ajax({
 		url: 'http://localhost:3000/trips/' + currentTrip,
 		type: 'get',
 	}).done(function(data) {
 
-		showTrip(data);
+		var destination = data.destination;
+			var lng = data.longitude;
+			var lat = data.latitude;
+			var placesArray = data.placesArray;
+			// console.log(placesArray);
+			// console.log("running show trip");
+
+	});
+}
+
+
+
+// PULLING DATA TO SHOW IN EDIT TRIP PAGE 
+
+function editTrip(data) { 
+
+
+	$.ajax({
+		url: 'http://localhost:3000/trips/' + currentTrip,
+		type: 'get',
+	}).done(function(data) {
+
+		var destination = data.destination;
+			var lng = data.longitude;
+			var lat = data.latitude;
+			var placesArray = data.placesArray;
+			// console.log(placesArray);
+			// console.log("running show trip");
 
 	});
 }
@@ -74,6 +86,15 @@ function getSavedPlaces() {
 // SHOWING LIST OF ALL TRIPS FOR CURRENT USER 
 
 function showTrips() {
+
+	event.preventDefault();
+
+	$("#trips-list").fadeIn();
+}
+
+
+
+function populateTripsList() {
 
 	event.preventDefault();
 
@@ -95,7 +116,9 @@ function showTrips() {
 
 
 	});
+
 }
+
 
 
 
@@ -113,6 +136,8 @@ function deleteTrip() {
 		type: 'delete',
 	}).done(function(){
 		console.log('deleted')
+		$("#trips-list").empty();
+		populateTripsList();
 	});
 }
 
