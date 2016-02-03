@@ -4,7 +4,9 @@ function init(){
   checkForIdForNav();
   $("#logoutNav").on("click", removeId);
   // event listener for the the profile button
-  $("#profileLink").on("click", openProfilePage)
+  $("#profileLink").on("click", openProfilePage);
+  $("#plannerLink").on("click", openPlannerPage);
+  
 }
 
 function getCurrentUserIdForNav(){
@@ -37,6 +39,10 @@ function removeId() {
 // function for ajax to open the profile page via request
 function openProfilePage() {
 	window.location = 'http://localhost:3000/users/'+ getCurrentUserIdForNav();
+}
+
+function openPlannerPage(){
+	window.location = 'http://localhost:3000/planner';
 }
 
 
