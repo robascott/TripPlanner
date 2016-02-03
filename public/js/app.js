@@ -13,6 +13,7 @@ function init(){
   $("body").on("click", ".delete-trip-button", deleteTrip);
   $('#showTrips').on("click", showTrips);
   $('#show-trip-summary').on("click", showTrip);
+  $("body").on("click", ".show-trip-link", selectTripFromList);
 
 }	
 
@@ -40,7 +41,7 @@ function checkForId() {
 
 
 
-// PULLING DATA TO SHOW IN SINGLE TRIP
+// PULLING DATA TO SHOW IN SINGLE TRIP WHEN CLICKING DONE 
 
 function showTrip(data) { 
 
@@ -58,6 +59,31 @@ function showTrip(data) {
 
 	});
 }
+
+
+// PULLING DATA TO SHOW IN SINGLE TRIP WHEN SELECTING TRIP FROM TRIPS LIST
+
+function selectTripFromList(data) {
+
+	event.preventDefault();
+
+	var tripId = $(this).data('trip-id');
+
+		$.ajax({
+			url: 'http://localhost:3000/trips/' + tripId,
+			type: 'get',
+		}).done(function(data) {
+
+			var destination = data.destination;
+			var lng = data.longitude;
+			var lat = data.latitude;
+			var placesArray = data.placesArray;
+				
+			console.log(destination, lng, lat, placesArray);
+
+		});
+	}
+
 
 
 
@@ -108,7 +134,7 @@ function populateTripsList() {
 		for (i=0;i<data.length;i++) {
 
 
-			tripsListRow = "<div class='trip-title' data-trip-id='" + data[i]._id + "'><h2 style='display: inline'>" + data[i].destination + "</h2><input type='button' value='Edit trip' /><input type='button' class='delete-trip-button' data-trip-id='" + data[i]._id + "' value='Delete trip' /></div>";
+			tripsListRow = "<div class='trip-title' data-trip-id='" + data[i]._id + "'><a href='#' class='show-trip-link' data-trip-id='" + data[i]._id + "'><h2 style='display: inline'>" + data[i].destination + "</h2></a><input type='button' value='Edit trip' /><input type='button' class='delete-trip-button' data-trip-id='" + data[i]._id + "' value='Delete trip' /></div>";
 
 			$("#trips-list").append(tripsListRow);
 
