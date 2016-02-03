@@ -1,10 +1,13 @@
 $(init);
 
+// var tripId;
+
 function init(){
-  
+  	
   checkForId();
 
-  $("#testDelete").on("click", deleteTrip)
+  $("#testDelete").on("click", deleteTrip);
+  $('#showTrips').on("click", showTrips);
 
 }	
 
@@ -24,6 +27,23 @@ function checkForId() {
 	}
 
 }
+
+
+// FUNCTION 
+
+function showTrips() {
+
+	event.preventDefault();
+
+	$.ajax({
+		url: 'http://localhost:3000/users/' + getCurrentUserId() + '/trips',
+		type: 'get',
+	}).done(function(data){
+		console.log('AJAX WORKED');
+		console.log(data);
+	});
+}
+
 
 // TESTING FUNCTION TO DELETE TRIP (WORKS ON NEWTRIP.EJS)
 

@@ -15,6 +15,12 @@ router.route('/trips')
 router.route('/trips/:id')
 	.delete(apiController.removeTrip);	
 
+router.route('/trips/:id/places')
+	.post(apiController.createPlace);
+
+
+router.route('/users/:id/trips')
+	.get(apiController.showTripsList);
 
 
 router.get('/login', usersController.showLogin);
