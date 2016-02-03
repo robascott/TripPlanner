@@ -1,5 +1,7 @@
 $(init);
 
+var currentTrip;
+
 function init(){
   $(".confirm-dest-button").on("click", getNearbyPlaces);
 
@@ -15,14 +17,48 @@ function init(){
     $(this).next().hide();
   });
 
+
+  $("body").on("click", ".add-place-button", addPlace);
+  //$("body").on("click", ".add-place-button", removePlace);
+
 }
+
+
+function addPlace() {
+  var selectedPlaceId = $(this).data('place-id');
+
+  $.ajax({
+    url: 'http://localhost:3000/trips/' + currentTrip + '/places',
+    type: 'post',
+    data: { place: {
+      "place_id": selectedPlaceId,
+      "trip": currentTrip
+      }
+    }
+  }).done(function(place) {
+      console.log(place);
+  });
+}
+
+
+// function removePlace() {
+//   var selectedPlaceId = $(this).data('place-id');
+
+//   $.ajax({
+//     url: 'http://localhost:3000/trips/' + currentTrip + '/places',
+//     type: 'delete'
+//   }).done(function(place) {
+//       console.log(place);
+//   });
+// }
+
 
 var markers = [];
 
 function hoverFunction() {
   console.log("this.next(): " + $(this).next().attr('class'));
   $(this).next().show();
-}  
+}
 
 
 
@@ -159,8 +195,7 @@ function createTrip() {
     }
     }
     }).done(function(trip) {
-      console.log(trip);
-
+      currentTrip = trip._id;
     });
 }
 
@@ -173,7 +208,7 @@ function callback(results, status) {
     // Add skeleton
     for (i=0; i<10; i++) {
 
-      tileContent += "<div class='col-xs-4 suggestion-tile'>";
+      tileContent += "<div class='col-xs-4 suggestion-tile' data-grid-id='" + i + "'>";
 
       tileContent += "<h3 class='place-name' data-grid-id='" + i + "'></h3>";
 
@@ -183,9 +218,9 @@ function callback(results, status) {
 
       tileContent += "<p class='place-rating' data-grid-id='" + i + "'></p>";
 
-      tileContent += "<a class='place-website' data-grid-id='" + i + "'>Website</a>";
+      tileContent += "<a class='place-website' data-grid-id='" + i + "'>Website</a><br>";
 
-      // closing column div
+      // closing tile div
       tileContent += "</div>";
 
       if ((((i+1) % 3) == 0 )) {
@@ -205,6 +240,7 @@ function callback(results, status) {
           console.error(status);
           return;
         }
+
 
         var tileContent = "";
 
@@ -243,24 +279,18 @@ function callback(results, status) {
             hoursHTML += "<p>" + day + "</p>";
           });
 
-          hoursHTML += "</div>";
+          hoursHTML += "</div><br>";
 
           $(".place-website[data-grid-id='" + j + "']").after(hoursHTML);
 
         }
-        
 
+        var addButton = "<input type='button' class='add-place-button' data-place-id='" + place_id + "'value='Add'>"
+        var removeButton = "<input type='button' class='remove-place-button' data-place-id='" + place_id + "'value='Remove'>";
 
-        // $("#suggestions").append(tileContent);
+        $(".suggestion-tile[data-grid-id='" + j + "']").append(addButton);
+        $(".suggestion-tile[data-grid-id='" + j + "']").append(removeButton);
 
-        // $('.place-hours-label').hover(function(e) {
-        //   $('.place-hours-pop-up').show()
-        //     .css('top', e.pageY + moveDown)
-        //     .css('left', e.pageX + moveLeft)
-        //     .appendTo('body');
-        // }, function() {
-        //   $('div#pop-up').hide();
-        // });
 
       }})(i));
         	
