@@ -15,7 +15,7 @@ module.exports = function(passport) {
       if (err) return done(err, false, { message: "Something went wrong." });
 
       // No error but already an user registered
-      if (user) return done(null, false, { message: "Please choose another email." });
+      if (user) return done(err, false, { message: "Please choose another email." });
 
       var newUser            = new User();
       newUser.local.email    = email;

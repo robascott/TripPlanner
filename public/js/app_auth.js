@@ -3,7 +3,7 @@ $(init);
 function init(){
   $("#authFormLogin").on("submit", submitAuthFormLogin);
   $("#authFormSignUp").on("submit", submitAuthFormSignup);
-
+  $("#loginError").hide();
   checkForId();
 }	
 
@@ -24,7 +24,11 @@ function submitAuthFormLogin() {
 
 		console.log(checkForId());
 
-	}) 
+	}).fail(function(res){
+		var message = res.responseText
+		
+		$("#loginError").text(message).show();
+	})
 	
 }
 

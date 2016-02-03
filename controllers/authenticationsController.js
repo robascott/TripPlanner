@@ -33,9 +33,14 @@ function register(req, res, next) {
 
 function login(req, res, next) {
 
-  User.findOne({'local.email': req.body.email}, function(error, user){
+  User.findOne({'local.email': req.body.email}, function(err, user){
+    console.log(err)
+    if (err) {
+      return res.status(401).send("Something went wrong")
+    } else if (user == null) {
+      return res.status(401).send("User not found!")
+    }
 
-    if (error) res.status(404).json({message: "There is no user registered with that email."})
 
     // compare password with bcrypt encrypted password
     if (bcrypt.compareSync(req.body.password, user.local.password)) {
@@ -48,7 +53,7 @@ function login(req, res, next) {
     } else {
 
       // if password is not correct, an error message is shown
-      res.status(401).json({message: "Incorrect password"});
+      res.status(401).send("Incorrect password");
     };
 
   });
