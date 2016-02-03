@@ -3,13 +3,7 @@ var bcrypt   = require('bcrypt-nodejs');
 
 var placeSchema = new mongoose.Schema({ 
 
-	name : String,
-	place_id : Number,
-	rating : Number,
-	vicinity : String,
-	website : String,
-	photo : String,
-	weekday_text : [],
+	place_id : String,
 	trip : {type: mongoose.Schema.ObjectId, ref: 'Trip'}
 });
 

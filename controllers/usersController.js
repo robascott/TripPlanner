@@ -19,34 +19,39 @@ function usersIndex(req, res) {
   });
 }
 
-// this is where we can use the current user to show their profile
+// When clicks on profile link it will go through here
 function usersShow(req, res){
-  // console.log("got to users show")
-  // console.log(req.params.id)
   User.findById(req.params.id, function(err, user){
-    console.log("This should be the" + user)
     if (err) return res.status(404).json({message: 'Something went wrong.'});
     res.render('profile', {user: user});
-    
   });
 }
 
 function usersUpdate(req, res){
-  User.findById(req.params.id,  function(err, user) {
-    if (err) return res.status(500).json({message: "Something went wrong!"});
-    if (!user) return res.status(404).json({message: 'No user found.'});
 
-    if (req.body.email) user.local.email = req.body.email;
-    if (req.body.password) user.local.password = req.body.password;
+  console.log(req.body.email);
+  User.findByIdAndUpdate({ _id: req.params.id }, {'local.email': req.body.email}, {new: true}, function(err, user){
+    if (err) return res.status(500).send(err);
+    if (!user) return res.status(404).send(err);
 
-    user.save(function(err) {
-     if (err) return res.status(500).json({message: "Something went wrong!"});
+    res.status(200).send(user);
+  });  
 
-      res.status(201).json({message: 'User successfully updated.', user: user});
-    });
-  });
+  // User.findById(req.params.id,  function(err, user) {
+  //   if (err) return res.status(500).json({message: "Something went wrong!"});
+  //   if (!user) return res.status(404).json({message: 'No user found.'});
+  //   console.log(req.body.email)
+  // //   if (req.body.email) user.local.email = req.body.email;
+
+  //   user.save(function(err) {
+  //    if (err) return res.status(500).json({message: "Something went wrong!"});
+
+  //     res.status(201).json({message: 'User successfully updated.', user: user});
+  //   });
+  // });
 }
 
+// this is called when you press the delete button in profile
 function usersDelete(req, res){
   User.findByIdAndRemove({_id: req.params.id}, function(err){
    if (err) return res.status(404).json({message: 'Something went wrong.'});

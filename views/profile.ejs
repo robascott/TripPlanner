@@ -1,10 +1,22 @@
-<h1>This is the profile page</h1>
+<h1>Profile Page (<%= user.local.email %>)</h1>
 
-<%= user._id %>
-<%= user.local.email %>
 
-<button id="deleteUser">Delete Account</button>
 
+
+<div class="col-md-12">
+  <form id="editEmail">
+    <div class="input-group input-group-lg">
+      <span class="input-group-addon" id="basic-addon1">Email:</span>
+      <input id='updateEmailField'type="text" class="form-control" placeholder="Email" aria-describedby="basic-addon1" name="email" value="<%= user.local.email %>">
+    </div>
+    <br>
+    <input type="submit" value="Change Email" class="btn btn-primary">
+  </form>
+</div>
+
+<div class="col-md-12">
+<button class="btn btn-danger" id="deleteUser">Delete Account</button>
+</div>
 
 <script type="text/javascript" src="../js/profile.js"></script>
 
