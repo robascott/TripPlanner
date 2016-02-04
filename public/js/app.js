@@ -44,6 +44,7 @@ function checkForId() {
 
 function editTrip() {
 	showTrip('edit',$(this)); // second argument is clicked edit button
+	$('#done-button').data('trip-id',currentTrip);
 	$("#show-trip-content").empty();
 	$("#show-trip-div").hide();
 	$("#edit-trip-div").show();
@@ -88,7 +89,7 @@ function showTrip(mode,clickedItem) {
 		});
 
 		if (viewMode == 'show') {
-			createTiles(placeIdsArray);
+			getTrip(placeIdsArray);
 		} else {
 			getNearbyPlaces(mode,lat,lng);
 		}

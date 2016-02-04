@@ -218,8 +218,9 @@ function createTrip() {
     });
 }
 
+function createTiles(places,placeIds) {
 
-function createTiles(places) {
+  console.log(placeIds);
 
   var tileContent = "<div class='row'>";
 
@@ -314,27 +315,70 @@ function createTiles(places) {
 
       }
 
-      var addButton = "<input type='button' class='add-place-button' data-place-id='" + place_id + "'value='Add'>"
-      var removeButton = "<input type='button' class='remove-place-button hidden-button' data-place-id='" + place_id + "'value='Remove'>";
+      if (viewMode=='edit') {
+        var placeMapIds = []; 
+
+        placeIds.forEach(function(place) {  // placeIds == [{mapsId: dsfsdfg, dbId: sdfadgadf}, {mapsId: afdgsfdg, dbId: adfafg}, ...]
+          placeMapIds.push(place.mapsId);
+        });
+
+        var index2 = placeMapIds.indexOf(place_id); // index if suggestion already saved in database
+
+
+        if (index2 > -1) {
+          $(".suggestion-tile[data-grid-id='" + j + "']").toggleClass('added-place');
+
+          var addButton = "<input type='button' class='add-place-button hidden-button' data-place-id='" + place_id + "'value='Add'>"
+          var removeButton = "<input type='button' class='remove-place-button' data-place-id='" + place_id + "' data-place-db-id='" + placeIds[index2].dbId + "' value='Remove'>";
+        
+        } else {
+
+          var addButton = "<input type='button' class='add-place-button' data-place-id='" + place_id + "'value='Add'>"
+          var removeButton = "<input type='button' class='remove-place-button hidden-button' data-place-id='" + place_id + "' value='Remove'>";
+
+        }
+        
+      } else {
+
+        var addButton = "<input type='button' class='add-place-button' data-place-id='" + place_id + "'value='Add'>"
+        var removeButton = "<input type='button' class='remove-place-button hidden-button' data-place-id='" + place_id + "'value='Remove'>";
+
+      }
 
       $(".suggestion-tile[data-grid-id='" + j + "']").append(addButton);
-      $(".suggestion-tile[data-grid-id='" + j + "']").append(removeButton); 
+      $(".suggestion-tile[data-grid-id='" + j + "']").append(removeButton);
 
 
     }})(i));
         
   }
-  $('#show-trip-div').show();
-  console.log('showing div');
+
 }
 
 
+function getTrip(places) {
+
+  var placeIds = [];
+  $.ajax({
+    url: 'http://localhost:3000/trips/' + currentTrip,
+    type: 'get',
+  }).done(function(data) {
+    var placesArray = data.placesArray;
+    placesArray.forEach(function(place) {
+      //placeIds.push(place.place_id);
+      placeIds.push({mapsId: place.place_id, dbId: place._id});
+    });
+    createTiles(places,placeIds)
+  });
+
+  
+}
 
 
 function callback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
 
-    createTiles(results.slice(0, 9));
+    getTrip(results.slice(0, 9));
 
   }
 }
