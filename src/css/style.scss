@@ -83,6 +83,7 @@ html, body { height: 100%; margin: 0; padding: 0; }
 }
 
 .place-hours-pop-up {
+  z-index: 9999;
   display: none;
   position: absolute;
   width: 280px;

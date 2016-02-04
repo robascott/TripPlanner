@@ -10,9 +10,6 @@ function init(){
 
   $("body").on('mouseenter', ".place-hours-label", function(event) {
     $(this).next().show();
-      // .css('top', e.pageY + moveDown)
-      // .css('left', e.pageX + moveLeft)
-      // .appendTo('body');
   }).on('mouseleave', ".place-hours-label", function( event ) {
     $(this).next().hide();
   });
@@ -188,8 +185,8 @@ function getNearbyPlaces(mode,lat,lng) {
   var service = new google.maps.places.PlacesService(map);
   service.nearbySearch({
     location: dest,
-    radius: 500
-    //types: ['store']
+    radius: 500,
+    types: ['amusement_park','aquarium','art_gallary','church','museum','park','stadium','zoo']
   }, callback);
 }
 
@@ -338,7 +335,7 @@ function createTiles(places,placeIds) {
 
         }
         
-      } else {
+      } else if (viewMode == 'new') {
 
         var addButton = "<input type='button' class='add-place-button' data-place-id='" + place_id + "'value='Add'>"
         var removeButton = "<input type='button' class='remove-place-button hidden-button' data-place-id='" + place_id + "'value='Remove'>";
