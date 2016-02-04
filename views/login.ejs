@@ -2,12 +2,14 @@
 <div id="loginPageContainer">
 	<div id="formContainer">
 		<div id="title">
-			<img src="./images/compass.png">
+			<!-- <img src="./images/compass.png"> -->
 			<h1>Trip Planner</h1>
+			<div id="loginError" class="alert alert-danger"></div>
 		</div>
+
 		<div id="formPadding">
 			<h2>Login</h2>
-			<div id="loginError" class="alert alert-danger"></div>
+			
 			<form method="post" action="/login" id="authFormLogin">
 			  <div class="form-group">
 			    <input class="form-control" type="text" name="email" id="email" placeholder="Email" required>
@@ -19,6 +21,7 @@
 
 			  <input id="buttons" class="btn btn-success" type="submit">
 			</form>
+
 		</div>
 	</div>
 </div>

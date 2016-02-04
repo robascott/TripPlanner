@@ -1,15 +1,13 @@
 #formContainer {
 	color: white;
 	font-family: 'Oswald', sans-serif;
-	
 	width: 500px;
 	height: 225px;
 	position: absolute;
 	left: 50%;
 	top: 40%;
 	-webkit-transform: translate(-50%, -50%);
-     transform: translate(-50%, -50%);
-    
+    transform: translate(-50%, -50%);
 }
 
 #loginPageContainer {
@@ -17,15 +15,14 @@
 	width: 100%;
 	background-image: url("../images/littlecar.jpg"); 
 	background-size: cover;
-	
 }
 
 #formPadding {
 	width: 100%;
 	height: 100%;
 	margin: auto;
-	background-color: #C33C54;
-	border-radius: 15px;
+	background-color: rgba(195, 60, 84, 0.52);
+	border-radius: 5px;
 	padding: 30px;
 	padding-top: 5px;
 }
@@ -74,8 +71,29 @@
 	#navbarTitle {
 		font-family: 'Lobster', cursive;
 		color: white;
-		
-
 	}
 }
 
+.openFontColor a {
+    color: blue;
+    font-family: 'Roboto', sans-serif;
+}
+
+.dropdown-menu {
+	background-color: #254E70;
+	color: black;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    color: #555;
+    background-color: #254E70;
+}
+
+#navStyle a:hover {
+    color: #FFFFFF;
+    background-color: #37718E;
+}
+
+#loginError {
+	font-family: 'Roboto', sans-serif;
+}
