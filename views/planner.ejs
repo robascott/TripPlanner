@@ -1,11 +1,21 @@
 <!-- DIV WITH MAP AND FIELD TO SEARCH & CONFIRM TRIP DESTINATION -->
 <section>
 
-<input id="pac-input" class="controls" type="text" placeholder="Enter destinatinon">
+
+	
 
 <div id="search-div">
+
+	<h1>Where are you going?</h1>
+
+	<div id="search-field-and-button">
+		<input id="pac-input" class="controls" type="text" placeholder="Enter a city, town or region">
+		<input class="confirm-dest-button" type="button" id="search-bar-button" value="Confirm destination">
+	</div>
+
+
 	<div id="map"></div>
-	<input class="confirm-dest-button" type="button" value="Confirm destination">
+	
 </div>
 
 
@@ -15,9 +25,11 @@
 	<h1 class="trip-destination"></h1>
 	
 	<div id="edit-trip-content">
+
 	</div>
 
 	<input type="button" id="done-button" value="DONE!" />
+
 </div>
 
 

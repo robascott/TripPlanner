@@ -2,13 +2,31 @@ section {
   max-width: 900px;
   margin: 0 auto;
   margin-top: 70px;
+  padding-bottom: 20px;
 }
 
-html, body { height: 100%; margin: 0; padding: 0; }
+html, body { 
+  height: 100%; 
+  margin: 0; 
+  padding: 0; 
+  background-color: #ecf0f1;
+}
 
 #map { 
-  height: 300px; 
-  width: 600px;
+  height: 400px; 
+  width: 100%;
+  margin: 0 auto;
+  border: 2px solid #ddd;
+  border-radius: 3px;
+}
+
+#search-div {
+  width: 700px;
+  margin: 0 auto;
+}
+
+#search-field-and-button {
+  margin-bottom: 20px;
 }
 
 .controls {
@@ -27,11 +45,47 @@ html, body { height: 100%; margin: 0; padding: 0; }
   font-family: Roboto;
   font-size: 15px;
   font-weight: 300;
-  margin-left: 12px;
   padding: 0 11px 0 13px;
   text-overflow: ellipsis;
-  width: 300px;
+  width: 70%;
 }
+
+#search-bar-button {
+  background-color: #254E70;
+  border-color: #254E70;
+  font-family: 'Roboto', sans-serif;
+  border: none;
+  color: white;
+  height: 33px;
+  border-radius: 3px;
+  width: 29%;
+}
+
+#edit-trip-button, #done-button, #remove-place-button {
+  background-color: #254E70;
+  border-color: #254E70;
+  font-family: 'Roboto', sans-serif;
+  border: none;
+  color: white;
+  height: 33px;
+  border-radius: 3px;
+  width: 100%;
+}
+
+.add-place-button { 
+  background-color: #2DAB97;
+  border-color: #2DAB97;
+  font-family: 'Roboto', sans-serif;
+  border: none;
+  color: white;
+  height: 33px;
+  border-radius: 3px;
+  width: 94%;
+  position: absolute;
+  bottom: 10px;
+}
+
+
 
 #pac-input:focus {
   border-color: #4d90fe;
@@ -46,7 +100,10 @@ html, body { height: 100%; margin: 0; padding: 0; }
 }
 
 .suggestion-tile {
-  border: 2px solid transparent;
+  padding: 10px;
+  margin: 5px;
+  background-color: white;
+  border-radius: 3px;
 }
 
 .place-website {
@@ -80,11 +137,11 @@ html, body { height: 100%; margin: 0; padding: 0; }
 }
 
 #show-trip-content, #edit-trip-content {
-  padding-bottom: 120px;
+  padding-bottom: 20px;
 }
 
 .suggestion-tile:hover {
-  background-color: #ecf0f1;
+  background-color: #DCE3E5;
 }
 
 .place-hours-pop-up {
