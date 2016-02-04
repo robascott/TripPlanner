@@ -1,0 +1,72 @@
+/*#pageLayout {
+	margin-top: 60px;
+}
+
+*/
+
+#profilePageContainer {
+
+	height: 100%;
+	width: 100%;
+	background-image: url("../images/towerbridge.jpg"); 
+	background-size: cover;
+}
+
+#editEmail {
+	margin: 20px;
+	width: 100%;
+	margin-left: 0px;
+}
+
+
+#profileFormContainer {
+    color: white;
+    font-family: 'Oswald', sans-serif;
+    width: 350px;
+    height: 150px;
+    position: absolute;
+    left: 20%;
+    top: 20%;
+    /*background-color: rgba(37, 78, 112, 0.57);
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 5px;*/
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+
+#profileFormPadding {
+	width: 100%;
+	height: 100%;
+	margin: auto;
+	background-color: rgba(37, 78, 112, 0.39);
+	border-radius: 5px;
+	padding: 30px;
+	padding-top: 5px;
+}
+
+#buttons {
+	background-color: #254E70;
+	border-color: #254E70;
+	font-family: 'Roboto', sans-serif;
+}
+
+#profileTitle {
+	font-family: 'Lobster', cursive;
+
+	img {
+		height: 60px;
+		width: 60px;
+		display: inline-block;
+		margin-bottom: 20px;
+		margin-right: 15px;
+	}
+
+	h1 { 
+		font-size: 70px;
+    	display: inline-block;
+    	text-shadow: 2px 2px #000000;
+	}
+	
+}

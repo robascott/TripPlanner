@@ -1,22 +1,42 @@
-<h1>Profile Page (<%= user.local.email %>)</h1>
-
-
-
-
-<div class="col-md-12">
-  <form id="editEmail">
-    <div class="input-group input-group-lg">
-      <span class="input-group-addon" id="basic-addon1">Email:</span>
-      <input id='updateEmailField'type="text" class="form-control" placeholder="Email" aria-describedby="basic-addon1" name="email" value="<%= user.local.email %>">
-    </div>
-    <br>
-    <input type="submit" value="Change Email" class="btn btn-primary">
-  </form>
+<div id="pageLayout">
+	<!-- <h1>Profile Page (<%= user.local.email %>)</h1>
+	<div class="col-md-12">
+	  <form id="editEmail">
+	    <div class="input-group input-group-lg">
+	      <span class="input-group-addon" id="basic-addon1">Email:</span>
+	      <input id='updateEmailField'type="text" class="form-control" placeholder="Email" aria-describedby="basic-addon1" name="email" value="<%= user.local.email %>">
+	    </div>
+	    <br>
+	    <input type="submit" value="Change Email" class="btn btn-primary">
+	  </form>
+	</div>
+	<div class="col-md-12">
+		<button class="btn btn-danger" id="deleteUser">Delete Account</button>
+	</div> -->
 </div>
 
-<div class="col-md-12">
-<button class="btn btn-danger" id="deleteUser">Delete Account</button>
+<div id="profilePageContainer">
+	<div id="profileFormContainer">
+		<div id="profileTitle">
+			<h1>Profile</h1>
+		</div>
+
+		<div id="profileFormPadding">
+
+		<form id="editEmail">
+	    <div class="input-group input-group-lg">
+	      <span class="input-group-addon" id="basic-addon1">Email:</span>
+	      <input id='updateEmailField'type="text" class="form-control" placeholder="Email" aria-describedby="basic-addon1" name="email" value="<%= user.local.email %>">
+	    </div>
+	    <br>
+	    <input type="submit" value="Change Email" class="btn btn-primary">
+	    <button class="btn btn-danger" id="deleteUser">Delete Account</button>
+		</form>
+
+		</div>
+	
 </div>
+
+	
 
 <script type="text/javascript" src="../js/profile.js"></script>
-
