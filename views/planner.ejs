@@ -2,21 +2,30 @@
 
 <input id="pac-input" class="controls" type="text" placeholder="Enter destinatinon">
 
-<div id="map"></div>
-
-<input class="confirm-dest-button" type="button" value="Confirm destination">
-
+<div id="search-div">
+	<div id="map"></div>
+	<input class="confirm-dest-button" type="button" value="Confirm destination">
+</div>
 
 
 <!-- DIV IN WHICH THE SUGGESTIONS FROM GOOGLE PLACES WILL BE SHOWN -->
 
-<div id="suggestions">
-	<input type="button" id="show-trip-summary" value="DONE!" />
+<div id="edit-trip-div">
+	
+	<div id="edit-trip-content">
+	</div>
+
+	<input type="button" id="done-button" value="DONE!" />
 </div>
 
 
 <!-- DIV IN WHICH THE TRIP SUMMARY WILL BE SHOWN -->
-<div id="trip-summary">
+<div id="show-trip-div">
+	<div id="show-trip-content">	
+	</div>
+
+	<input type="button" id="edit-trip-button" value="Edit trip" />
+
 </div>
 
 

@@ -3,7 +3,7 @@ $(init);
 var currentTrip;
 
 function init(){
-  $(".confirm-dest-button").on("click", getNearbyPlaces);
+  $(".confirm-dest-button").on("click", newTrip);
 
   var moveLeft = 20;
   var moveDown = 10;
@@ -25,12 +25,8 @@ function init(){
 
 
 function addPlace() {
-  var selectedPlaceId = $(this).data('place-id');
-
-  $(this).parent().toggleClass('added-place');
-
-  var addPlaceButton = $(".add-place-button[data-place-id='" + selectedPlaceId + "']")
-  addPlaceButton.toggleClass('hidden-button');
+  var selectedAddButton = $(this);
+  var selectedPlaceId = selectedAddButton.data('place-id');
 
   $.ajax({
     url: 'http://localhost:3000/trips/' + currentTrip + '/places',
@@ -41,28 +37,31 @@ function addPlace() {
       }
     }
   }).done(function(place) {
+    
+    selectedAddButton.parent().toggleClass('added-place');
+    selectedAddButton.toggleClass('hidden-button');
+
     var removePlaceButton = $(".remove-place-button[data-place-id='" + selectedPlaceId + "']");
     removePlaceButton.data('place-db-id', place._id);
     removePlaceButton.toggleClass('hidden-button');
 
-    //removeButton.css('display','inline-block');
   });
 }
 
 
 function removePlace() {
-  var selectedPlaceDbId = $(this).data('place-db-id');
-  var selectedPlaceId = $(this).data('place-id');
+  var selectedRemoveButton = $(this);
 
-  $(this).parent().toggleClass('added-place');
-
-  var removePlaceButton = $(".remove-place-button[data-place-id='" + selectedPlaceId + "']");
-  removePlaceButton.toggleClass('hidden-button');
+  var selectedPlaceDbId = selectedRemoveButton.data('place-db-id');
+  var selectedPlaceId = selectedRemoveButton.data('place-id');
 
   $.ajax({
     url: 'http://localhost:3000/trips/' + currentTrip + '/places/' + selectedPlaceDbId,
     type: 'delete'
   }).done(function(place) {
+
+    selectedRemoveButton.parent().toggleClass('added-place');
+    selectedRemoveButton.toggleClass('hidden-button');
 
     var addPlaceButton = $(".add-place-button[data-place-id='" + selectedPlaceId + "']");
     addPlaceButton.toggleClass('hidden-button');
@@ -164,28 +163,34 @@ function getTitle() {
 }
 
 
-function getNearbyPlaces() {
-  viewMode = 'edit';
+function newTrip() {
+  getNearbyPlaces("new",getLat(),getLng());
+  $("#edit-trip-div").show();
+}
 
-  $("#map").css('display','none');
+//var service;
+
+function getNearbyPlaces(mode,lat,lng) {
+
+  viewMode = mode;
+
+  $("#search-div").hide();
   $('.confirm-dest-button').remove();
 
   // Calling function to create trip once the user clicks confirm destination button
-  createTrip();
-
-  // Coordinates of destination
-  var lat = getLat();
-	var lng = getLng();
+  if (mode=='new') {
+    createTrip();
+  }
 
 	var dest = {lat: lat, lng: lng}; 
 
 	// 'service' shouldn't be global
-  service = new google.maps.places.PlacesService(map);
-	  service.nearbySearch({
-	    location: dest,
-	    radius: 500
-	    //types: ['store']
-	  }, callback);
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch({
+    location: dest,
+    radius: 500
+    //types: ['store']
+  }, callback);
 }
 
 
@@ -207,6 +212,7 @@ function createTrip() {
     }
     }).done(function(trip) {
       currentTrip = trip._id;
+      $('#done-button').data('trip-id',trip._id)
       $("#trips-list").empty();
       populateTripsList();
     });
@@ -241,17 +247,18 @@ function createTiles(places) {
 
   }
 
-  if (viewMode == "edit") {
-    $("#suggestions").append(tileContent);
+  if (viewMode == "edit" || viewMode == 'new') {
+    $("#edit-trip-content").append(tileContent);
   } else {
-    $("#trip-summary").append(tileContent);
+    console.log("appending skeleton to show-trip-content");
+    $("#show-trip-content").append(tileContent);
   }
   
-
 
   for (i = 0; i < places.length; i++) {
 
     // add delay to this
+    var service = new google.maps.places.PlacesService(map);
     service.getDetails(places[i], (function(j) { return function(result, status) {
       if (status !== google.maps.places.PlacesServiceStatus.OK) {
         console.error(status);
@@ -291,6 +298,7 @@ function createTiles(places) {
 
       
       var openingHours = result.opening_hours
+
       if(typeof openingHours !== 'undefined'){
         var hoursHTML = "<a href='#' class='place-hours-label' data-grid-id='" + j + "'>Opening Hours</a>";
 
@@ -316,6 +324,8 @@ function createTiles(places) {
     }})(i));
         
   }
+  $('#show-trip-div').show();
+  console.log('showing div');
 }
 
 
@@ -324,7 +334,7 @@ function createTiles(places) {
 function callback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
 
-    createTiles(results.slice(0, 10));
+    createTiles(results.slice(0, 9));
 
   }
 }

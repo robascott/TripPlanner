@@ -1,6 +1,5 @@
 $(init);
 
-
 function init(){
   	
   //CHECKING LOCAL STORAGE TO MAKE SURE USER IS LOGGED IN
@@ -12,10 +11,14 @@ function init(){
   // ADDING EVENT LISTENERS TO BUTTONS 
   $("body").on("click", ".delete-trip-button", deleteTrip);
   $('#showTrips').on("click", showTrips);
-  $('#show-trip-summary').on("click", showTrip);
-  $("body").on("click", ".show-trip-link", selectTripFromList);
+  $('#done-button').on("click", showSingleTrip);
+  $('#edit-trip-button').on('click', editTrip);
+  $("body").on("click", ".show-trip-link", showSingleTrip);
 
-}	
+  $("#edit-trip-div").hide();
+  $("#show-trip-div").hide();
+
+}
 
 
 // GETTING CURRENT USER ID FROM LOCAL STORAGE.
@@ -39,17 +42,34 @@ function checkForId() {
 
 }
 
+function editTrip() {
+	showTrip('edit',$(this)); // second argument is clicked edit button
+	$("#show-trip-content").empty();
+	$("#show-trip-div").hide();
+	$("#edit-trip-div").show();
+}
+
+function showSingleTrip() {
+	showTrip('show', $(this)); // second argument is clicked trip name
+	$("#edit-trip-content").empty();
+	$("#edit-trip-div").hide();
+	$("#show-trip-div").show();
+	$("#trips-list").hide();
+}
+
 
 
 // PULLING DATA TO SHOW IN SINGLE TRIP WHEN CLICKING DONE 
 
 var viewMode;
 
-function showTrip(data) {
+function showTrip(mode,clickedItem) {
 
-	$("#suggestions").hide();
+	viewMode = mode;
 
-	viewMode = "show";
+	currentTrip = clickedItem.data('trip-id');
+	
+	$("#edit-trip-button").data('trip-id',currentTrip)
 
 	$.ajax({
 		url: 'http://localhost:3000/trips/' + currentTrip,
@@ -58,70 +78,37 @@ function showTrip(data) {
 
 		var destination = data.destination;
 		var placesArray = data.placesArray;
+		var lat = data.latitude;
+		var lng = data.longitude;
 
 		var placeIdsArray = [];
 
 		placesArray.forEach(function(place) {
 			placeIdsArray.push({placeId: place.place_id});
-		})
-
-		createTiles(placeIdsArray);
-
-	});
-}
-
-
-// PULLING DATA TO SHOW IN SINGLE TRIP WHEN SELECTING TRIP FROM TRIPS LIST
-
-function selectTripFromList(data) {
-
-	event.preventDefault();
-
-	var tripId = $(this).data('trip-id');
-
-		$.ajax({
-			url: 'http://localhost:3000/trips/' + tripId,
-			type: 'get',
-		}).done(function(data) {
-
-			var destination = data.destination;
-			var lng = data.longitude;
-			var lat = data.latitude;
-			var placesArray = data.placesArray;
-				
-			console.log(destination, lng, lat, placesArray);
-
 		});
-}
 
-
-
-
-// PULLING DATA TO SHOW IN EDIT TRIP PAGE 
-
-function editTrip(data) { 
-
-	$.ajax({
-		url: 'http://localhost:3000/trips/' + currentTrip,
-		type: 'get',
-	}).done(function(data) {
-
-		var lng = data.longitude;
-		var lat = data.latitude;
-		var placesArray = data.placesArray;
-		// console.log(placesArray);
-		// console.log("running show trip");
+		if (viewMode == 'show') {
+			createTiles(placeIdsArray);
+		} else {
+			getNearbyPlaces(mode,lat,lng);
+		}
 
 	});
-
 }
+
+
+
 
 
 // SHOWING LIST OF ALL TRIPS FOR CURRENT USER 
 
 function showTrips() {
+	$("#edit-trip-content").empty();
+	$("#show-trip-content").empty();
 
-	event.preventDefault();
+	$("#edit-trip-div").hide();
+	$("#show-trip-div").hide();
+	$("#search-div").hide();
 
 	$("#trips-list").fadeIn();
 }
