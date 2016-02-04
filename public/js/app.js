@@ -89,6 +89,7 @@ function showTrip(mode,clickedItem) {
 		});
 
 		if (viewMode == 'show') {
+			initSavedPlacesMap(lat,lng);
 			getTrip(placeIdsArray);
 		} else {
 			getNearbyPlaces(mode,lat,lng);

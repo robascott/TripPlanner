@@ -67,9 +67,32 @@ function removePlace() {
 }
 
 
+var placesMap;
+
+function initSavedPlacesMap(lat,lng) {
+  placesMap = new google.maps.Map(document.getElementById('places-map'), {
+    center: {lat: lat, lng: lng},
+    zoom: 13,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+}
+
+function addPlaceMarker(name,lat,lng) {
+  var latlng = new google.maps.LatLng(lat,lng);
+  
+  var marker = new google.maps.Marker(
+  {
+      position: latlng,
+      map: placesMap,
+      title: name
+  });
+}
+
+
+
+
+
 var markers = [];
-
-
 
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
@@ -135,7 +158,6 @@ function initMap() {
     });
     map.fitBounds(bounds);
 
-    printPos();
   });
   // [END region_getplaces]
 
@@ -258,6 +280,8 @@ function createTiles(places,placeIds) {
         return;
       }
 
+      addPlaceMarker(result.name,result.geometry.location.lat(),result.geometry.location.lng());
+
       var tileContent = "";
 
       $(".place-name[data-grid-id='" + j + "']").text(result.name);
@@ -353,6 +377,10 @@ function createTiles(places,placeIds) {
 
 
 function getTrip(places) {
+
+  while (currentTrip == undefined) {
+    // spin
+  }
 
   var placeIds = [];
   $.ajax({
