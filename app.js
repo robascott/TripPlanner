@@ -15,12 +15,12 @@ var session        = require('express-session');
 var sass           = require('node-sass-middleware');
 var app            = express();
 
+
 var config         = require('./config/config');
 var User           = require('./models/user');
 var secret         = require('./config/config').secret;
 
 mongoose.connect(config.database);
-
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + "/views");
