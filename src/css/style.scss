@@ -104,6 +104,19 @@ html, body {
   bottom: 10px;
 }
 
+.delete-trip-button {
+  background-color: #c33c54;
+  border-color: #c33c54;
+  font-family: 'Roboto', sans-serif;
+  border: none;
+  color: white;
+  height: 24px;
+  border-radius: 3px;
+  width: 150px;
+  margin-left: 20px;
+  margin-bottom: 6px;
+}
+
 
 #pac-input:focus {
   border-color: #4d90fe;
