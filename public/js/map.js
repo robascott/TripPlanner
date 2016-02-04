@@ -228,7 +228,7 @@ function createTiles(places,placeIds) {
 
     tileContent += "<h3 class='place-name' data-grid-id='" + i + "'></h3>";
 
-    tileContent += "<img class='place-photo' data-grid-id='" + i + "'>";
+    tileContent += "<div class='place-photo' data-grid-id='" + i + "'></div>";
 
     tileContent += "<p class='place-vicinity' data-grid-id='" + i + "'></p>";
 
@@ -271,12 +271,16 @@ function createTiles(places,placeIds) {
 
       var photos = result.photos
       if(typeof photos !== 'undefined'){
-        var photo = photos[0].getUrl({'maxWidth': 180, 'maxHeight': 150});
-        $(".place-photo[data-grid-id='" + j + "']").attr('src', photo);
+        var photo = photos[0].getUrl({'maxWidth': 250, 'maxHeight': 300});
+        $(".place-photo[data-grid-id='" + j + "']").css('background-image', "url('" + photo + "')");
       } else {
-        $(".place-photo[data-grid-id='" + j + "']").attr('src', 'http://i.imgur.com/DwMWyOB.png');
-        $(".place-photo[data-grid-id='" + j + "']").css('max-width', 180);
+        $(".place-photo[data-grid-id='" + j + "']").css('background-image', "url('http://i.imgur.com/DwMWyOB.png')");
+        
       }
+
+      $(".place-photo[data-grid-id='" + j + "']").css('background-size', 'cover');
+      $(".place-photo[data-grid-id='" + j + "']").css('height', '200px');
+      $(".place-photo[data-grid-id='" + j + "']").css('width', '100%');
 
       var vicinity = result.vicinity;
       if(typeof vicinity !== 'undefined'){
