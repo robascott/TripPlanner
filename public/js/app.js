@@ -33,10 +33,8 @@ function getCurrentUserId(){
 function checkForId() {
 
 	if(getCurrentUserId()) {
-		console.log("You are indeed logged in");
-	}
-
-	else {
+		console.log("You are logged in");
+	} else {
 		window.location= "/login";
 	}
 
@@ -142,8 +140,6 @@ function populateTripsList() {
 }
 
 
-
-
 // FUNCTION TO DELETE TRIP
 
 function deleteTrip() {
@@ -157,7 +153,6 @@ function deleteTrip() {
 		url: 'http://localhost:3000/trips/' + tripId,
 		type: 'delete',
 	}).done(function(){
-		console.log('deleted')
 		$("#trips-list").empty();
 		populateTripsList();
 	});

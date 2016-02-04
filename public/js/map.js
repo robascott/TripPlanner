@@ -138,11 +138,6 @@ function initMap() {
 
 }
 
-function printPos() {
-	console.log("Lat: " + markers[0].position.lat());
-	console.log("Long: " + markers[0].position.lng());
-}
-
 function getLat() {
 	return markers[0].position.lat();
 }
@@ -217,8 +212,6 @@ function createTrip() {
 
 function createTiles(places,placeIds) {
 
-  console.log(placeIds);
-
   var tileContent = "<div class='row'>";
 
   // Add skeleton
@@ -248,7 +241,6 @@ function createTiles(places,placeIds) {
   if (viewMode == "edit" || viewMode == 'new') {
     $("#edit-trip-content").append(tileContent);
   } else {
-    console.log("appending skeleton to show-trip-content");
     $("#show-trip-content").append(tileContent);
   }
   
