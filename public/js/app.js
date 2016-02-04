@@ -71,7 +71,7 @@ function showTrip(mode,clickedItem) {
 	$("#edit-trip-button").data('trip-id',currentTrip)
 
 	$.ajax({
-		url: 'http://localhost:3000/trips/' + currentTrip,
+		url: '/trips/' + currentTrip,
 		type: 'get',
 	}).done(function(data) {
 
@@ -121,7 +121,7 @@ function populateTripsList() {
 	event.preventDefault();
 
 	$.ajax({
-		url: 'http://localhost:3000/users/' + getCurrentUserId() + '/trips',
+		url: '/users/' + getCurrentUserId() + '/trips',
 		type: 'get',
 	}).done(function(data){
 		
@@ -153,7 +153,7 @@ function deleteTrip() {
 	var singleTripDiv = $(".trip-title[data-trip-id='" + tripId + "']").remove();
 
 	$.ajax({
-		url: 'http://localhost:3000/trips/' + tripId,
+		url: '/trips/' + tripId,
 		type: 'delete',
 	}).done(function(){
 		$("#trips-list").empty();

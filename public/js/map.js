@@ -26,7 +26,7 @@ function addPlace() {
   var selectedPlaceId = selectedAddButton.data('place-id');
 
   $.ajax({
-    url: 'http://localhost:3000/trips/' + currentTrip + '/places',
+    url: '/trips/' + currentTrip + '/places',
     type: 'post',
     data: { place: {
       "place_id": selectedPlaceId,
@@ -53,7 +53,7 @@ function removePlace() {
   var selectedPlaceId = selectedRemoveButton.data('place-id');
 
   $.ajax({
-    url: 'http://localhost:3000/trips/' + currentTrip + '/places/' + selectedPlaceDbId,
+    url: '/trips/' + currentTrip + '/places/' + selectedPlaceDbId,
     type: 'delete'
   }).done(function(place) {
 
@@ -196,7 +196,7 @@ function createTrip() {
   var currentUserId = getCurrentUserId();
 
   $.ajax({
-    url: 'http://localhost:3000/trips',
+    url: '/trips',
     type: 'post',
     data: { trip: {
       "destination": getTitle(),
@@ -230,7 +230,7 @@ function createTiles(places,placeIds) {
 
     tileContent += "<p class='place-rating' data-grid-id='" + i + "'></p>";
 
-    tileContent += "<a class='place-website' data-grid-id='" + i + "'></a><br>";
+    tileContent += "<a class='place-website' data-grid-id='" + i + "' target='_blank'></a><br>";
 
     // closing tile div
     tileContent += "</div>";
@@ -356,7 +356,7 @@ function getTrip(places) {
 
   var placeIds = [];
   $.ajax({
-    url: 'http://localhost:3000/trips/' + currentTrip,
+    url: '/trips/' + currentTrip,
     type: 'get',
   }).done(function(data) {
     var placesArray = data.placesArray;

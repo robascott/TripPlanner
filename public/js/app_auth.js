@@ -14,7 +14,7 @@ function submitAuthFormLogin() {
 	event.preventDefault();
 
 	$.ajax ({
-	 	url: 'http://localhost:3000/login',
+	 	url: '/login',
 	 	type: 'post',
 	 	data: { 
 			"email": $("input#email").val(),
@@ -38,7 +38,7 @@ function submitAuthFormSignup() {
 	event.preventDefault();
 
 	$.ajax ({
-	 	url: 'http://localhost:3000/signup',
+	 	url: '/signup',
 	 	type: 'post',
 	 	data: { 
 			"email": $("input#email").val(),

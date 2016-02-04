@@ -10,7 +10,7 @@ function init(){
 //this will grab the current user and delete
 function getUserForDelete() {
 	var user = getCurrentUserIdForNav()
-	userid = 'http://localhost:3000/users/'+ user;
+	userid = '/users/'+ user;
 	// ajax request to delete the uses and clear the local storage
 	$.ajax({
 		url: userid,
@@ -23,7 +23,7 @@ function getUserForDelete() {
 
 function editEmail() {
 	var user = getCurrentUserIdForNav()
-	userid = 'http://localhost:3000/users/'+ user;
+	userid = '/users/'+ user;
 	// ajax request to delete the uses and clear the local storage
 	$.ajax({
 		url: userid,

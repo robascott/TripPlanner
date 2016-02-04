@@ -40,19 +40,19 @@ function removeId() {
 
 // function for ajax to open the profile page via request
 function openProfilePage() {
-	window.location = 'http://localhost:3000/users/'+ getCurrentUserIdForNav();
+	window.location = '/users/'+ getCurrentUserIdForNav();
 }
 
 function openPlannerPage(){
-	window.location = 'http://localhost:3000/planner';
+	window.location = '/planner';
 }
 
 function openSignUpPage(){
-	window.location = 'http://localhost:3000/signup';
+	window.location = '/signup';
 }
 
 function openLoginPage(){
-	window.location = 'http://localhost:3000/login';
+	window.location = '/login';
 }
 
 
