@@ -1,21 +1,24 @@
-<h2>Login</h2>
 
+<div id="loginPageContainer">
+	<div id="formContainer">
+		<div id="title">
+			<h1>Trip Planner</h1>
+		</div>
+		<div id="formPadding">
+			<h2>Login</h2>
+			<div id="loginError" class="alert alert-danger"></div>
+			<form method="post" action="/login" id="authFormLogin">
+			  <div class="form-group">
+			    <input class="form-control" type="text" name="email" id="email" placeholder="Email" required>
+			  </div>
 
-<div id="loginError" class="alert alert-danger"></div>
+			  <div class="form-group">
+			    <input class="form-control" type="password" name="password" id="password" placeholder="Password" required>
+			  </div>
 
-
-<form method="post" action="/login" id="authFormLogin">
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input class="form-control" type="text" name="email" id="email" required>
-  </div>
-
-  <div class="form-group">
-    <label for="email">Password</label>
-    <input class="form-control" type="password" name="password" id="password" required>
-  </div>
-
-  <input class="btn btn-success" type="submit">
-</form>
-
+			  <input id="buttons" class="btn btn-success" type="submit">
+			</form>
+		</div>
+	</div>
+</div>
 <script type="text/javascript" src="../js/app_auth.js"></script>
