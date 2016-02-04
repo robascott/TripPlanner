@@ -78,6 +78,10 @@ html, body { height: 100%; margin: 0; padding: 0; }
   height: 400px;
 }
 
+#show-trip-content, #edit-trip-content {
+  padding-bottom: 120px;
+}
+
 .suggestion-tile:hover {
   background-color: #ecf0f1;
 }
@@ -91,7 +95,8 @@ html, body { height: 100%; margin: 0; padding: 0; }
   background: #eeeeee;
   color: #000000;
   border: 1px solid #1a1a1a;
-  font-size: 90%;
+  font-size: 80%;
+  line-height: 0.7;
 }
 
 .added-place {

@@ -82,6 +82,8 @@ function showTrip(mode,clickedItem) {
 		var lat = data.latitude;
 		var lng = data.longitude;
 
+		$(".trip-destination").html("Your trip to " + destination);
+
 		var placeIdsArray = [];
 
 		placesArray.forEach(function(place) {
