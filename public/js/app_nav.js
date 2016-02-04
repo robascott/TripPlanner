@@ -6,7 +6,9 @@ function init(){
   // event listener for the the profile button
   $("#profileLink").on("click", openProfilePage);
   $("#plannerLink").on("click", openPlannerPage);
-  
+  $("#signupLink").on("click", openSignUpPage);
+  $("#loginLink").on("click", openLoginPage);
+  $('.navbar-toggle collapsed').dropdown();
 }
 
 function getCurrentUserIdForNav(){
@@ -43,6 +45,14 @@ function openProfilePage() {
 
 function openPlannerPage(){
 	window.location = 'http://localhost:3000/planner';
+}
+
+function openSignUpPage(){
+	window.location = 'http://localhost:3000/signup';
+}
+
+function openLoginPage(){
+	window.location = 'http://localhost:3000/login';
 }
 
 

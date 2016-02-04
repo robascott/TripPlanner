@@ -65,8 +65,6 @@ function showTrip(data) {
 			placeIdsArray.push({placeId: place.place_id});
 		})
 
-		console.log(placeIdsArray);
-
 		createTiles(placeIdsArray);
 
 	});
