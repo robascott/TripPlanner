@@ -6,7 +6,7 @@
 	height: 225px;
 	position: absolute;
 	left: 50%;
-	top: 50%;
+	top: 40%;
 	-webkit-transform: translate(-50%, -50%);
      transform: translate(-50%, -50%);
     
@@ -33,6 +33,7 @@
 #buttons {
 	background-color: #254E70;
 	border-color: #254E70;
+	font-family: 'Roboto', sans-serif;
 }
 
 #title {
@@ -43,3 +44,29 @@
 	}
 	
 }
+
+#navStyle {
+	margin-bottom: 0px; 
+	background-color: #254E70;
+	border: none;
+	color: white;
+	border-radius: 0px;
+
+	a {
+		color: white;
+		font-family: 'Roboto', sans-serif;
+	}
+
+	a:hover {
+		color: #DDD;
+	}
+	
+	
+	#navbarTitle {
+		font-family: 'Lobster', cursive;
+		color: white;
+		
+
+	}
+}
+

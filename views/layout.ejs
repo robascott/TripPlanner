@@ -8,6 +8,7 @@
     <link rel='stylesheet' href='/css/login.css' />
     <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:500' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
     <script type="text/javascript" src="./js/map.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiCc-BJ1GrJsQCnlq5mCV1lxjoT2DTbeg&libraries=places&callback=initMap"></script>
@@ -16,7 +17,7 @@
   </head>
 
   <!--  BOOTSTRAP NAVIGATION -->
-  <nav class="navbar navbar-default">
+  <nav id="navStyle" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
@@ -26,7 +27,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Trip Planner</a>
+        <a id="navbarTitle" class="navbar-brand" href="#">Trip Planner</a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
