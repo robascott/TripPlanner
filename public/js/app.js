@@ -133,7 +133,7 @@ function populateTripsList() {
 
 		for (i=0;i<data.length;i++) {
 
-			tripsListRow = "<div class='trip-title' data-trip-id='" + data[i]._id + "'><a href='#' class='show-trip-link' data-trip-id='" + data[i]._id + "' style='text-decoration: none'><h2 class='trip-title-name' style='display: inline-block'>" + data[i].destination + "</h2></a><input type='button' class='delete-trip-button' data-trip-id='" + data[i]._id + "' value='Delete trip'></div>";
+			tripsListRow = "<div class='trip-title' data-trip-id='" + data[i]._id + "'><a href='#' class='show-trip-link' data-trip-id='" + data[i]._id + "' style='text-decoration: none'><h2 class='trip-title-name' style='display: inline-block'>" + data[i].destination + "</h2></a><input type='button' class='delete-trip-button' data-trip-id='" + data[i]._id + "' value='✖'></div>";
 
 			$("#trips-list").append(tripsListRow);
 
