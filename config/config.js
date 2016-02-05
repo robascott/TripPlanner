@@ -1,4 +1,4 @@
 module.exports = {
   'secret': 'happytrippers',
-  'database': 'mongodb://localhost:27017/happytrippersdb'
+  'database': process.env.MONGOLAB_URI || 'mongodb://localhost:27017/happytrippersdb'
 };
