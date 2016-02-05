@@ -45,14 +45,14 @@ function editTrip() {
 	$('#done-button').data('trip-id',currentTrip);
 	$("#show-trip-content").empty();
 	$("#show-trip-div").hide();
-	$("#edit-trip-div").show();
+	$("#edit-trip-div").fadeIn();
 }
 
 function showSingleTrip() {
 	showTrip('show', $(this)); // second argument is clicked trip name
 	$("#edit-trip-content").empty();
 	$("#edit-trip-div").hide();
-	$("#show-trip-div").show();
+	$("#show-trip-div").fadeIn();
 	$("#trips-list").hide();
 }
 
