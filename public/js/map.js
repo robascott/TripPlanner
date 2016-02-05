@@ -79,14 +79,28 @@ function initSavedPlacesMap(lat,lng) {
   });
 }
 
-function addPlaceMarker(name,lat,lng) {
+function addPlaceMarker(name,vicinity,lat,lng) {
   var latlng = new google.maps.LatLng(lat,lng);
+
+  var contentString = "<h4>" + name + "</h4><p>" + vicinity + "</p>";
+
+  var infowindow = new google.maps.InfoWindow({
+      content: contentString
+  });
   
   var marker = new google.maps.Marker(
   {
-      position: latlng,
-      map: placesMap,
-      title: name
+    position: latlng,
+    map: placesMap,
+    title: name
+  });
+
+  marker.addListener('mouseover', function() {
+    infowindow.open(placesMap, marker);
+  });
+
+  marker.addListener('mouseout', function() {
+      infowindow.close();
   });
 }
 
@@ -282,7 +296,7 @@ function createTiles(places,placeIds) {
         return;
       }
 
-      addPlaceMarker(result.name,result.geometry.location.lat(),result.geometry.location.lng());
+      addPlaceMarker(result.name,result.vicinity,result.geometry.location.lat(),result.geometry.location.lng());
 
       var tileContent = "";
 
