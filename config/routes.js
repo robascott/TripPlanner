@@ -16,6 +16,12 @@ router.route('/trips/:id')
 	.get(apiController.showTripSummary)
 	.delete(apiController.removeTrip);
 
+
+router.route('/')
+	.get(function(req,res) {
+		res.redirect("/planner");
+	})
+
 	
 
 router.route('/trips/:id/places')
