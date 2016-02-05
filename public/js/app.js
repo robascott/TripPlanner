@@ -133,9 +133,14 @@ function populateTripsList() {
 
 		for (i=0;i<data.length;i++) {
 
-			tripsListRow = "<div class='trip-title' data-trip-id='" + data[i]._id + "'><a href='#' class='show-trip-link' data-trip-id='" + data[i]._id + "'><h2 style='display: inline'>" + data[i].destination + "</h2></a><input type='button' class='delete-trip-button' data-trip-id='" + data[i]._id + "' value='Delete trip'></div>";
+			tripsListRow = "<div class='trip-title' data-trip-id='" + data[i]._id + "'><a href='#' class='show-trip-link' data-trip-id='" + data[i]._id + "' style='text-decoration: none'><h2 class='trip-title-name' style='display: inline-block'>" + data[i].destination + "</h2></a><input type='button' class='delete-trip-button' data-trip-id='" + data[i]._id + "' value='Delete trip'></div>";
 
 			$("#trips-list").append(tripsListRow);
+
+			$(".trip-title[data-trip-id='" + data[i]._id + "']").css('background-image', "url('https://maps.googleapis.com/maps/api/staticmap?center=" + data[i].destination + "&zoom=13&size=900x200&maptype=roadmap&key=AIzaSyDiCc-BJ1GrJsQCnlq5mCV1lxjoT2DTbeg')");
+			$(".trip-title[data-trip-id='" + data[i]._id + "']").css('background-size', 'cover');
+			$(".trip-title[data-trip-id='" + data[i]._id + "']").css('height', '200px');
+			$(".trip-title[data-trip-id='" + data[i]._id + "']").css('width', '100%');
 
 		}
 
