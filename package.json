@@ -2,7 +2,7 @@
   "name": "trip-planner",
   "version": "1.0.0",
   "description": "## Contributors Robin, Richard, Chiara, David",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
