@@ -128,7 +128,7 @@ function populateTripsList() {
 		
 		var tripsListRow;
 
-		$("#trips-list").append($("<h1>Trips you have already created</h1>"));
+		$("#trips-list").append($("<h1>All trips</h1>"));
 
 
 		for (i=0;i<data.length;i++) {
