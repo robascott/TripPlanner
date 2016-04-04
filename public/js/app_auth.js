@@ -22,7 +22,7 @@ function submitAuthFormLogin() {
 	 	}
 	}).done(setCurrentUserId, function() {
 
-		console.log(checkForId());
+		checkForId();
 
 	}).fail(function(res){
 		var message = res.responseText
@@ -46,7 +46,7 @@ function submitAuthFormSignup() {
 	 	}
 	}).done(setCurrentUserId, function() {
 
-		console.log(checkForId());
+		checkForId();
 
 	}) 
 	
@@ -69,7 +69,7 @@ function checkForId() {
 
 	}
 	else {
-		console.log("No current user id found")
+		
 	}
 
 }

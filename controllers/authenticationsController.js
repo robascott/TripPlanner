@@ -5,9 +5,6 @@ var jwt      = require('jsonwebtoken');
 var bcrypt   = require('bcrypt-nodejs');
 
 
-
-
-
 function register(req, res, next) {
 
   // calling the local signup strategy which is in config/passport.js
@@ -24,7 +21,7 @@ function register(req, res, next) {
       res.json({ user: user, token: token });
 
 
-    })
+  });
 
   signupStrategy(req, res, next);
 

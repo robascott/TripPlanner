@@ -16,20 +16,14 @@ function getCurrentUserIdForNav(){
 }
 
 function checkForIdForNav() {
-
 	if(getCurrentUserIdForNav()) {
-
 		$(".loggedOut").hide();
 		$(".loggedIn").show();
-
-
 	}
 	else {
-		
 		$(".loggedOut").show();
 		$(".loggedIn").hide();
 	}
-
 }
 
 function removeId() {
