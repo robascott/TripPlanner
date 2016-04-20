@@ -1,17 +1,29 @@
-# DayTripper - Readme
+# Trip Planner
+
+Group Node.js project.
+
+<img src="public/images/screenshot.png" width=900px></img>
 
 ## Contributors
-Robin, Richard, Chiara, David
 
-## Introduction 
+* [Chiara Buzzi](https://github.com/ChiaraBuzzi)
+* [Richard Gurney](https://github.com/richgurney)
+* David Leslie
+* [Robin Scott](https://github.com/robascott)
 
-DayTripper lets you create awesome trip plans. 
+## About
 
-You will get suggestions from Google Places on activities and places to visit, and you'll be able to save those you actually want to go to! 
+Enter a city and Trip Planner will show you various places and attractions you might be interested in visiting. Selecting a suggestion adds it to your trip plan. Click *Done* to see the places you selected displayed on a map.
+
+The app retrieves its data from the Places Library within the Google Maps API.
+
+## Technology
+
+Node.js, Express.js, MongoDB, Mongoose, Passport, JSON Web Token, Ajax, Bootstrap, Google Maps API
 
 ## Technical Requirements
 
-Your app must:
+The app must:
 
 * **Use Mongo & Express** to build an API and a front-end that consumes it
 * **Create an API using at least 2 related models**, one of which should be a user
@@ -21,35 +33,8 @@ Your app must:
 * **Craft thoughtful user stories together**, as a team
 * **Manage team contributions and collaboration** using a standard Git flow on Github
 * Layout and style your front-end with **clean & well-formatted CSS**
-* **Deploy your application online** so it's publically accessible
+* **Deploy your application online** so it's publicly accessible
 
-## Deliverables
+## How to run
 
-* A **working API, built by the whole team**, hosted somewhere on the internet
-* A handmade front-end **that consumes your own API**, hosted somewhere on the internet
-* A **link to your hosted working app** in the URL section of your Github repo
-* A **team git repository hosted on Github**, with a link to your hosted project, and frequent commits from _every_ team member dating back to the _very beginning_ of the project
-* **A ``readme.md`` file** with:
-    * Explanations of the **technologies** used
-    * A couple paragraphs about the **general approach you took**
-    * **Installation instructions** for any dependencies
-    * Link to your **user stories** – who are your users, what do they want, and why?
-    * Link to your **wireframes** – sketches of major views / interfaces in your application
-    * Descriptions of any **unsolved problems** or **major hurdles** your team had to overcome
-
-
-## User Stories
-
-The user will be able to create a plan for a trip.
-
-The user will be able to add activities to a trip.
-
-The user will be able to access information using a map.
-
-The user will be able to create, update and delete an account.
-
-## Screenshots
-
-Here is where screenshots of the app will go. 
-
-
+    npm install && npm start
